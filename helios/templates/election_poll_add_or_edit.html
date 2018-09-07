@@ -7,28 +7,16 @@
 {% block content %}
 {% if election.feature_can_add_poll or poll %}
 
-{% if election.linked_polls %}
-    <form action="{% url "election_polls_add" election.uuid %}" method="post"
-     enctype="multipart/form-data">
-        {% csrf_token %}
-        <label>{% trans "Batch polls update" %}</label>
-        <input type="file" name="batch_file" />
-        <br />
-        <br />
-        <input type="submit" class="button small" value="{% trans "Save" %}" />
-    </form>
-{% else %}
-    <form data-protect="1" class="prettyform" action="" method="POST">
-        <table class="pretty">
-        {% with form=form %}
-            {% include "foundation_form.html" %}
-        {% endwith %}
-        </table>
-        <a class="button" href="{% url "election_polls_list"  election.uuid %}">
-        {% trans "Cancel" %}</a>
-        <input class="button" type="submit" value="{% trans "Save" %}"/>
-    </form>
-{% endif %}
+<form data-protect="1" class="prettyform" action="" method="POST">
+    <table class="pretty">
+    {% with form=form %}
+        {% include "foundation_form.html" %}
+    {% endwith %}
+    </table>
+    <a class="button" href="{% url "election_polls_list"  election.uuid %}">
+    {% trans "Cancel" %}</a>
+    <input class="button" type="submit" value="{% trans "Save" %}"/>
+</form>
 
 <script>
 var oauth2_elems = $("input[id^=id_oauth2]:not(#id_oauth2_thirdparty), select[id^=id_oauth2]");

@@ -390,14 +390,17 @@ class TestElectionBase(SetUpAdminAndClientMixin, TestCase):
             self.assertEqual(nr_voters, 0)
         self.verbose('- Voters from faulty file were not submitted')
 
-    def get_voters_file(self):
+    def get_voters_file(self, count=None):
         counter = 0
         voter_files = {}
+        count = self.voters_num if count is None else count
         for p_uuid in self.p_uuids:
             fname = '/tmp/random_voters%s.csv' % counter
             voter_files[p_uuid] = fname
             fp = file(fname, 'w')
             for i in range(1, self.voters_num+1):
+                if i > count:
+                  break
                 voter = "%s,voter%s@mail.com,test_name%s,test_surname%s\n" \
                     % (i, i, i, i)
                 fp.write(voter)

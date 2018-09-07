@@ -22,7 +22,9 @@
           {% for pname, purl, last_cast in linked_booth_urls %}
           <li>
           <a href="{{ purl }}">{{ pname }}
-            <em style="color: #aaa; font-size:0.9em">{% if not last_cast %}{% trans "No cast yet" %}{% else %}{{ last_cast|date }}{% endif %}</em>
+              <em style="color: #aaa; font-size:0.9em">
+                  {% if not last_cast %}{% trans "No cast yet" %}{% else %}
+                  {% blocktrans with last_cast_date=last_cast|date last_cast_time=last_cast|time %}Last vote cast at {{ last_cast_date }} ({{last_cast_time}}){% endblocktrans %}{% endif %}</em>
           </a>
           </li>
           {% endfor %}

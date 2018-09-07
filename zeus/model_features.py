@@ -128,7 +128,7 @@ class ElectionFeatures(FeaturesMixin):
     @election_feature('edit_trustees', 'edit_name', 'edit_description',
                       'edit_type', 'edit_voting_starts_at',
                       'edit_voting_ends_at', 'remote_mixes',
-                      'edit_linked_polls', 'edit_trial', 'edit_departments')
+                      'edit_trial', 'edit_departments')
     def _feature_editing_fields(self):
         return not self.feature_frozen
 
@@ -283,6 +283,18 @@ class PollFeatures(FeaturesMixin):
         return self.feature_frozen and not self.election.feature_closed
 
     @poll_feature()
+    def _feature_can_sync_voters(self):
+        return self.election.feature_can_add_poll
+
+    @poll_feature()
+    def _feature_edit_linked_ref(self):
+        existing = self.pk
+        has_voters = existing
+        if existing:
+            has_voters = self.voters.count() > 0
+        return not self.election.feature_closed and not has_voters
+
+    @poll_feature()
     def _feature_forum_closed(self):
         return self.election.feature_closed
 
@@ -335,12 +347,12 @@ class PollFeatures(FeaturesMixin):
 
     @poll_feature()
     def _feature_can_add_voter(self):
-        return not self.election.feature_closed
+        return not self.election.feature_closed and not self.is_linked_leaf
 
     @poll_feature()
     def _feature_can_clear_voters(self):
         return not self.election.feature_frozen and not \
-               self.election.feature_completed
+               self.election.feature_completed and not self.is_linked_leaf
 
     @poll_feature()
     def _feature_voters_set(self):
@@ -373,7 +385,7 @@ class PollFeatures(FeaturesMixin):
 
     @poll_feature()
     def _feature_can_send_voter_mail(self):
-        return not self.election.canceled_at and self.voters.count() > 0
+        return not self.is_linked_leaf and not self.election.canceled_at and self.voters.count() > 0
 
     @poll_feature()
     def _feature_can_send_voter_booth_invitation(self):
@@ -398,10 +410,14 @@ class PollFeatures(FeaturesMixin):
 
     @poll_feature()
     def _feature_can_exclude_voter(self):
+        if self.is_linked_leaf:
+            return False
         return not self.election.feature_closed
 
     @poll_feature()
     def _feature_can_delete_voter(self):
+        if self.is_linked_leaf:
+            return False
         if self.election.feature_closed:
             return False
         return self.get_module().can_delete_poll_voters()

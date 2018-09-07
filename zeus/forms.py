@@ -83,6 +83,7 @@ def setup_editable_fields(form, **value_overrides):
         widget = field.widget
         if not editable:
             widget.attrs['readonly'] = True
+            widget.attrs['disabled'] = True
             field.disabled = True # Django 1.9 only
 
             # creates a value_from_datadict which returns instance value instead
@@ -123,8 +124,6 @@ class ElectionForm(forms.ModelForm):
     remote_mixes = forms.BooleanField(label=_('Multiple mixnets'),
                                       required=False,
                                       help_text=help.remote_mixes)
-    linked_polls = forms.BooleanField(label=_("Linked polls (experimental)"),
-                                      required=False)
 
     FIELD_REQUIRED_FEATURES = {
         'trustees': ['edit_trustees'],
@@ -138,7 +137,6 @@ class ElectionForm(forms.ModelForm):
         'trial': ['edit_trial'],
         'departments': ['edit_departments'],
         'cast_consent_text': ['edit_cast_consent_text'],
-        'linked_polls': ['edit_linked_polls'],
     }
 
     class Meta:
@@ -148,7 +146,7 @@ class ElectionForm(forms.ModelForm):
                   'voting_extended_until',
                   'trustees', 'help_email', 'help_phone',
                   'communication_language',
-                  'sms_api_enabled', 'cast_consent_text','linked_polls')
+                  'sms_api_enabled', 'cast_consent_text')
 
     def __init__(self, owner, institution, *args, **kwargs):
         self.institution = institution
@@ -736,7 +734,8 @@ class PollForm(forms.ModelForm):
         'forum_ends_at': ['edit_forum'],
         'forum_description': ['edit_forum'],
         'forum_starts_at': ['edit_forum'],
-        'forum_extended_until': ['edit_forum_extension']
+        'forum_extended_until': ['edit_forum_extension'],
+        'linked_ref': ['edit_linked_ref']
     }
 
     formfield_callback = election_form_formfield_cb
@@ -744,12 +743,16 @@ class PollForm(forms.ModelForm):
     forum_enabled = forms.BooleanField(label=_('Poll forum enabled'),
                                        required=False,
                                        help_text=help.forum_enabled)
+    linked_ref = forms.ChoiceField(required=False, initial='',
+                                   label=_('Link voters list to another poll'))
 
     def __init__(self, *args, **kwargs):
         self.election = kwargs.pop('election', None)
         self.admin = kwargs.pop('admin', None)
 
         super(PollForm, self).__init__(*args, **kwargs)
+        if 'linked_ref' in self.initial and self.initial['linked_ref'] is None:
+            self.initial['linked_ref'] = ''
         CHOICES = (
             ('public', 'public'),
             ('confidential', 'confidential'),
@@ -766,6 +769,16 @@ class PollForm(forms.ModelForm):
                              forms.FileField(
                                  label="JWT public keyfile",
                                  required=False))
+
+        if self.instance.is_linked_root:
+            del self.fields['linked_ref']
+        else:
+            linked_choices = [["", ""]]
+            for p in self.election.polls.filter().exclude(pk=self.instance.pk):
+                if not p.is_linked_leaf:
+                    linked_choices.append((p.uuid, p.name))
+            self.fields['linked_ref'].choices = linked_choices
+
         self.fields['jwt_file'].widget.attrs['accept'] = '.pem'
         self.fields['jwt_public_key'] = forms.CharField(required=False,
                                                         widget=forms.Textarea)
@@ -835,6 +848,7 @@ class PollForm(forms.ModelForm):
         if self.admin and not self.admin.can_enable_forum:
             if not self.instance.forum_enabled:
                 del self.fields['forum_enabled']
+        self.instance.election = self.election
         setup_editable_fields(self)
 
 
@@ -848,11 +862,25 @@ class PollForm(forms.ModelForm):
                   'oauth2_exchange_url', 'oauth2_confirmation_url',
                   'shibboleth_auth', 'shibboleth_constraints',
                   'forum_enabled', 'forum_description', 'forum_starts_at',
-                  'forum_ends_at', 'forum_extended_until')
+                  'forum_ends_at', 'forum_extended_until', 'linked_ref')
 
     def iter_fieldset(self, name):
         for field in self.fieldsets[name][2]:
             yield self[field]
+
+    def clean_linked_ref(self):
+        ref = self.cleaned_data.get('linked_ref', None)
+        if not ref:
+            ref = None
+        if ref:
+            if not ref in self.election.polls.filter().values_list('uuid', flat=True):
+                raise forms.ValidationError(_("Invalid poll"))
+            else:
+                p = self.election.polls.get(uuid=ref)
+                if p.is_linked_leaf:
+                    raise forms.ValidationError(_("Invalid poll"))
+
+        return ref
 
     def clean_forum_starts_at(self):
         # forum start date should be set on a date after current date.
@@ -953,15 +981,21 @@ class PollForm(forms.ModelForm):
                     self._errors[field_name] = _('This field is required.'),
         else:
             for field_name in jwt_field_names:
-                data[field_name]=''
+                data[field_name] = ''
+
         return data
 
     def save(self, *args, **kwargs):
+        was_linked = self.initial.get('linked_ref', None)
         commit = kwargs.pop('commit', True)
         instance = super(PollForm, self).save(commit=False, *args, **kwargs)
         instance.election = self.election
+        is_new = instance.pk is None
         if commit:
             instance.save()
+        if (was_linked != instance.linked_ref) and instance.linked_ref:
+            if instance.linked_to_poll.feature_can_sync_voters:
+                instance.linked_to_poll.sync_linked_voters()
         return instance
 
 

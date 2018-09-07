@@ -71,191 +71,16 @@ def rename(request, election, poll):
     url = election_reverse(election, 'polls_list')
     return HttpResponseRedirect(url)
 
-@transaction.atomic
-def _handle_batch(election, polls, vars, auto_link=False, admin=None):
-    errors = []
-    existing = election.polls.filter()
-    get_poll = lambda ref: election.polls.filter(linked_ref=ref).count() \
-        and election.polls.get(linked_ref=ref)
-
-    # Import/update/remove polls
-    polls_form_data = {}
-    refs = []
-
-    byref = {}
-    for p in polls:
-        ref = p.get('ref')
-        assert ref
-        assert ref not in byref.keys()
-        byref[ref] = p
-    existing_refs = []
-    new_refs = []
-
-    polls_form_data = {}
-    i = 0
-    initial_count = 0
-
-    refs = [p.get('ref') for p in polls]
-
-    # update existing
-    for poll in existing:
-        fields = {}
-        prefix = "form-%d-" % i
-        add_field = lambda name, val: fields.update({''+prefix+name: val})
-        poll_data = byref.get(poll.linked_ref)
-        if not poll_data:
-            poll.delete()
-            poll.logger.info("Poll deleted")
-            continue
-        add_field('name', poll_data.get('name'))
-        add_field('id', poll.pk)
-        polls_form_data.update(fields)
-        existing_refs.append(poll.linked_ref)
-        initial_count += 1
-        i = i + 1
-
-    # append new takes place in higher indexes
-    for ref, poll_data in byref.iteritems():
-        if ref in existing_refs:
-            continue
-        fields = {}
-        add_field = lambda name, val: fields.update({''+prefix+name: val})
-        prefix = "form-%d-" % i
-        add_field('name', poll_data.get('name').strip())
-        add_field('id', None)
-        polls_form_data.update(fields)
-        new_refs.append(ref)
-        i = i + 1
-
-    polls_form_data.update({
-        'form-INITIAL_FORMS': initial_count,
-        'form-MAX_NUM_FORMS': 200,
-        'form-TOTAL_FORMS': len(polls)
-    })
-
-    polls_formset = modelformset_factory(Poll, PollForm, extra=10,
-                                         max_num=200, can_delete=False,
-                                         formset=PollFormSet)
-
-    form = polls_formset(polls_form_data,
-                         queryset=election.polls.filter(),
-                         election=election, admin=admin)
-    form.save(election)
-
-    for i, poll in enumerate(election.polls.filter()):
-        if not poll.linked_ref:
-            ref = new_refs.pop(0)
-        else:
-            ref = poll.linked_ref
-        poll_data = byref.get(ref)
-        link_id = poll_data.get('linkd_id', '')
-        if not link_id and auto_link:
-            link_id = election.uuid
-
-        if not poll.linked_ref:
-            poll.logger.info("Poll created")
-        poll.link_id = link_id or ''
-        poll.linked_ref = ref
-        poll.index = refs.index(ref) + 1
-        poll.save()
-
-    # handle polls questions
-    for i, poll_data in enumerate(polls):
-        module = election.get_module()
-        ref = poll_data.get('ref')
-        questions = poll_data.get('questions')
-
-        poll = election.polls.get(linked_ref=ref)
-        formset = module.questions_formset()
-
-        questions_form_data = {}
-        poll.questions = None
-        poll.questions_data = None
-        poll.save()
-
-        for qi, q in enumerate(questions):
-            fields = {}
-            prefix = 'form-%d-' % qi
-            add_field = lambda name, val: fields.update({''+prefix+name: val})
-            question = q.get('question')
-            tpl = Template(question)
-            context = Context(vars)
-            question = tpl.render(context)
-            qanswers = q.get('answers')
-            min_choices = q.get('min', 1)
-            max_choices = q.get('max', 1)
-
-            add_field('choice_type', 'choice')
-            add_field('max_answers', max_choices)
-            add_field('min_answers', min_choices)
-            add_field('question', question.strip())
-            add_field('ORDER', '')
-
-            if isinstance(qanswers, basestring):
-                _orig = qanswers
-                qanswers = vars.get(qanswers)
-                if qanswers is None:
-                    raise Exception("Invalid var name '%s'" % _orig)
-
-            for ai, answer in enumerate(qanswers):
-                add_field('answer_%d' % ai, answer)
-            questions_form_data.update(fields)
-
-        questions_form_data.update({
-            'form-INITIAL_FORMS': 1,
-            'form-MAX_NUM_FORMS': 200,
-            'form-TOTAL_FORMS': len(questions)
-        })
-        form = formset(questions_form_data)
-        if form.is_valid():
-            qdata = module.extract_question_data(form.cleaned_data)
-            poll.questions_data = qdata
-            poll.update_answers()
-            poll.logger.info("Poll questions updated")
-            poll.save()
-            try:
-                poll.zeus._validate_candidates()
-            except Exception, e:
-                raise Exception((poll.name, unicode(e)))
-        else:
-            for f in form:
-                for field in f:
-                    for error in field.errors:
-                        errors.append(error)
-
-    return errors if errors else True
-
-
-def _add_batch(request, election):
-    batch_file = request.FILES['batch_file']
-    try:
-        data = yaml.safe_load(batch_file)
-    except Exception:
-        messages.error(request, _("Invalid batch file contents"))
-        url = election_reverse(election, 'polls_list')
-        return HttpResponseRedirect(url)
-
-    try:
-        _handle_batch(election, data.get('polls'),
-                      data.get('vars', {}), data.get('auto_link', False),
-                      admin=request.admin)
-    except Exception, e:
-        election.logger.exception(e)
-        messages.error(request, str(e))
-
-    url = election_reverse(election, 'polls_list')
-    return HttpResponseRedirect(url)
 
 @auth.election_admin_required
 @require_http_methods(["POST", "GET"])
+@transaction.atomic
 def add_edit(request, election, poll=None):
     admin = request.admin
     if not poll and not election.feature_can_add_poll:
         raise PermissionDenied
     if poll and not poll.feature_can_edit:
         raise PermissionDenied
-    if election.linked_polls and request.FILES.has_key('batch_file'):
-        return _add_batch(request, election)
     if poll:
         oldname = poll.name
     if request.method == "POST":
@@ -288,6 +113,9 @@ def add_edit(request, election, poll=None):
 @auth.election_admin_required
 @require_http_methods(["POST"])
 def remove(request, election, poll):
+    if poll.is_linked_root:
+        messages.error(request, _("Unlink linked polls in order to be able to delete the poll."))
+        return HttpResponseRedirect(election_reverse(election, 'polls_list'))
     poll.delete()
     poll.logger.info("Poll deleted")
     return HttpResponseRedirect(election_reverse(election, 'polls_list'))
@@ -396,6 +224,7 @@ def voters_list(request, election, poll):
 @auth.requires_poll_features('can_clear_voters')
 @transaction.atomic
 @require_http_methods(["POST"])
+@redirects_to_linked
 def voters_clear(request, election, poll):
     polls = poll.linked_polls
     q_param = request.POST.get('q_param', None)
@@ -444,15 +273,15 @@ def voters_upload(request, election, poll):
         if bool(request.POST.get('confirm_p', 0)):
             # launch the background task to parse that file
             voter_file_id = request.session.get('voter_file_id', None)
-            process_linked  = request.session.get('no_link', False) is False
             if not voter_file_id:
                 messages.error(request, _("Invalid voter file id"))
                 url = poll_reverse(poll, 'voters')
                 return HttpResponseRedirect(url)
             try:
                 voter_file = VoterFile.objects.get(pk=voter_file_id)
+                poll.logger.info("Processing voters upload (linked=%r)", poll.is_linked_root)
                 try:
-                    voter_file.process(process_linked,
+                    voter_file.process(True,
                                        preferred_encoding=preferred_encoding)
                 except (exceptions.VoterLimitReached, \
                     exceptions.DuplicateVoterID, ValidationError) as e:
@@ -461,7 +290,6 @@ def voters_upload(request, election, poll):
                     url = poll_reverse(poll, 'voters')
                     return HttpResponseRedirect(url)
 
-                poll.logger.info("Processing voters upload")
             except VoterFile.DoesNotExist:
                 pass
             except KeyError:
@@ -579,7 +407,7 @@ def voters_email(request, election, poll=None, voter_uuid=None):
 
     polls = [poll]
     if not poll:
-        polls = election.polls_by_link_id
+        polls = election.polls_by_link
 
     voter = None
     if voter_uuid:
@@ -788,27 +616,29 @@ def voters_email(request, election, poll=None, voter_uuid=None):
 @auth.election_admin_required
 @auth.requires_poll_features('can_delete_voter')
 @require_http_methods(["POST"])
+@transaction.atomic
 def voter_delete(request, election, poll, voter_uuid):
     voter = get_object_or_404(Voter, uuid=voter_uuid, poll__in=poll.linked_polls)
     voter_id = voter.voter_login_id
-    unlink = request.GET.get('unlink', False)
 
     linked_polls = poll.linked_polls
-    if unlink:
-        linked_polls = linked_polls.filter(pk=poll.pk)
+    is_linked = poll.is_linked
 
-    for poll in linked_polls:
+    if voter.voted_linked or voter.participated_in_forum_linked:
+        raise PermissionDenied('36')
+
+    for _poll in linked_polls:
         voter = None
         try:
-            voter = Voter.objects.get(poll=poll, voter_login_id=voter_id)
+            voter = Voter.objects.get(poll=_poll, voter_login_id=voter_id)
         except Voter.DoesNotExist:
-            poll.logger.error("Cannot remove voter '%s'. Does not exist.",
+            _poll.logger.error("Cannot remove voter '%s'. Does not exist.",
                              voter_uuid)
         if voter and (voter.voted or voter.participated_in_forum):
             raise PermissionDenied('36')
-        if voter:
+        elif voter:
             voter.delete()
-            poll.logger.info("Poll voter '%s' removed", voter.voter_login_id)
+            _poll.logger.info("Poll voter '%s' removed", voter.voter_login_id)
             message = _("Voter removed successfully")
             messages.success(request, message)
 
@@ -871,6 +701,7 @@ def voter_booth_linked_login(request, election, poll, voter_uuid):
                      voter.voter_login_id, poll.uuid)
     url = linked_poll.get_booth_url(request)
     return HttpResponseRedirect(url)
+
 
 @auth.election_view(check_access=False)
 @require_http_methods(["GET"])

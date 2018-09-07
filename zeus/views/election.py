@@ -150,8 +150,6 @@ def index(request, election, poll=None):
         booth_url = poll.get_booth_url(request)
         if poll.has_linked_polls and user.is_voter:
             for p in poll.linked_polls:
-                if p == poll:
-                    continue
                 try:
                     voter = \
                         p.voters.get(voter_login_id=user._user.voter_login_id)

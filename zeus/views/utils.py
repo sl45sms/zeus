@@ -1,4 +1,7 @@
+import functools
+
 from django.core.urlresolvers import reverse
+from django.core.exceptions import PermissionDenied
 from django.http import Http404, HttpResponseRedirect, HttpResponse
 from zeus_forum.models import Post
 
@@ -34,3 +37,18 @@ def handle_voter_login_redirect(request, voter, default):
         pass
 
     return HttpResponseRedirect(_next)
+
+def redirects_to_linked(view):
+    @functools.wraps(view)
+    def wrapper(request, election, poll, *args, **kwargs):
+        if request.method == 'POST':
+            raise PermissionDenied
+        if poll.is_linked and not poll.is_linked_root:
+            root = poll.linked_to_poll
+            url = request.get_full_path()
+            assert poll.uuid in url
+            new_url = url.replace(poll.uuid, root.uuid)
+            return HttpResponseRedirect(new_url)
+        return view(request, election, poll, *args, **kwargs)
+    return wrapper
+

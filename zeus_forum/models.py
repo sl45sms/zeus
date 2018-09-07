@@ -216,12 +216,12 @@ class ForumUpdatesRegistrationManager(models.Manager):
         from helios.models import Voter
 
         if not poll.forum_enabled:
-            raise PermissionDenined
+            raise PermissionDenied
 
         try:
             voter = poll.voters.get(pk=voter.pk)
         except Voter.DoesNotExist:
-            raise PermissionDenined
+            raise PermissionDenied
 
         self.filter(voter=voter).delete()
         reg = self.create(

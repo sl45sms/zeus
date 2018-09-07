@@ -250,8 +250,13 @@ def make_results(elements, styles, total_votes, blank_votes,
     make_totals(elements, styles, total_votes, blank_votes)
     for party_result in parties_results:
         (party, count) = party_result
-        party = party.replace(u"{semi}", ":")
-        party = party.replace(u"{newline}", "\n")
+        if isinstance(party, str):
+            party = party.replace("{semi}", ":")
+            party = party.replace("{newline}", "\n")
+        else:
+            party = party.replace(u"{semi}", ":")
+            party = party.replace(u"{newline}", "\n")
+
         if (len(parties_results) >= 1):
             make_party_list_heading(elements, styles, party, count)
         if party not in candidates_results and not isinstance(party, unicode):

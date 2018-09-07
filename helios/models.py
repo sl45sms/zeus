@@ -263,7 +263,6 @@ class Election(ElectionTasks, HeliosModel, ElectionFeatures):
         (1, _('Official')),
     )
 
-    linked_polls = models.BooleanField(_('Linked polls'), default=False)
     election_module = models.CharField(_("Election type"), max_length=250,
                                          null=False,
                                          choices=ELECTION_MODULES_CHOICES,
@@ -372,9 +371,9 @@ class Election(ElectionTasks, HeliosModel, ElectionFeatures):
         return self.sms_api_enabled and self.sms_data
 
     @property
-    def polls_by_link_id(self):
-        linked = self.polls.exclude(link_id="").distinct("link_id")
-        unlinked = self.polls.filter(link_id="")
+    def polls_by_link(self):
+        linked = self.polls.exclude(linked_ref=None).distinct("linked_ref")
+        unlinked = self.polls.filter(linked_ref=None)
         return itertools.chain(linked, unlinked)
 
     @property
@@ -726,10 +725,8 @@ class PollManager(models.Manager):
 
 
 class Poll(PollTasks, HeliosModel, PollFeatures):
-  link_id = models.CharField(_('Poll link group'), max_length=255,
-                             default='')
   linked_ref = models.CharField(_('Poll reference id'), max_length=255,
-                                default='')
+                                null=True, default=None)
   name = models.CharField(_('Poll name'), max_length=255)
   short_name = models.CharField(max_length=255)
 
@@ -820,7 +817,7 @@ class Poll(PollTasks, HeliosModel, PollFeatures):
   objects = PollManager()
 
   class Meta:
-      ordering = ('link_id', 'index', 'created_at', )
+      ordering = ('-linked_ref', 'pk', 'created_at', )
       unique_together = (('name', 'election'),)
 
   def __init__(self, *args, **kwargs):
@@ -878,24 +875,106 @@ class Poll(PollTasks, HeliosModel, PollFeatures):
       self._logger = None
 
   @property
+  def is_linked_root(self):
+      return self.uuid and not self.linked_ref and self.linked_polls.count() > 1
+
+  @property
+  def is_linked_leaf(self):
+      return self.is_linked and not self.is_linked_root
+
+  @property
   def has_linked_polls(self):
-    if self.election.linked_polls and self.link_id.strip():
-        return self.election.polls.filter(link_id=self.link_id).count() > 1
-    return False
+    if not self.pk:
+        return bool(self.linked_ref)
+    return self.linked_ref or self.linked_polls.count() > 1
+
+  @property
+  def linked_to_poll(self):
+      if self.is_linked_root:
+          return self
+      if not self.linked_ref:
+          return None
+      return self.election.polls.get(uuid=self.linked_ref)
 
   @property
   def linked_polls(self):
-    if self.election.linked_polls and self.link_id.strip():
-        return self.election.polls.filter(link_id=self.link_id)
-    return self.election.polls.filter(id=self.pk)
+    polls = None
+    qroot = Q(uuid=self.uuid)
+    qother = Q(linked_ref=self.uuid)
+    if self.linked_ref:
+        qroot = Q(uuid=self.linked_ref)
+        qother = Q(linked_ref=self.linked_ref)
+    return self.election.polls.filter(qroot | qother).order_by('linked_ref', 'pk')
 
-  def next_linked_poll(self, voter_id=None):
-      linked_next = self.linked_polls.filter(index__gte=self.index)
-      if voter_id:
-          linked_next = linked_next.filter(voters__voter_login_id=voter_id)
-      if linked_next.count() > 1:
-          return linked_next[1]
+  @property
+  def other_linked_polls(self):
+    return self.linked_polls.exclude(pk=self.pk)
+
+  @property
+  def is_linked(self):
+      return self.linked_ref or self.has_linked_polls
+
+  def next_linked_poll(self, voter_id=None, exclude_cast_done=True):
+      polls = self.other_linked_polls
+      if polls.filter(pk__gt=self.pk).count():
+          polls = polls.filter(pk__gt=self.pk)
+      elif voter_id:
+          if exclude_cast_done:
+              polls = polls.filter(voters__voter_login_id=voter_id, voters__cast_at__isnull=True)
+          else:
+              polls = polls.filter(voters__cast_at__isnull=True)
+      if polls.count():
+          return polls[0]
       return None
+
+  def sync_voter(self, root, voter):
+    voter.voter_name = root.voter_name
+    voter.voter_email = root.voter_email
+    voter.voter_login_id = root.voter_login_id
+    voter.voter_surname = root.voter_surname
+    voter.voter_fathername = root.voter_fathername
+    voter.voter_mobile = root.voter_mobile
+    voter.voter_weight = root.voter_weight
+    voter.excluded_at = root.excluded_at
+    voter.exclude_reason = root.exclude_reason
+    voter.last_sms_send_at = root.last_sms_send_at
+    voter.last_sms_code = root.last_sms_code
+    voter.last_email_send_at = root.last_email_send_at
+    return voter
+
+  def sync_linked_voters(self, force=False):
+      assert not self.linked_ref
+      if not self.feature_can_sync_voters and not force:
+          self.logger.error("Skipping voter sync. Election is frozen")
+          return
+
+      self.logger.info("Sync voters for link %s", self.uuid)
+      root_voter_ids = set(self.voters.filter().values_list('voter_login_id', flat=True))
+      for poll in self.other_linked_polls:
+          poll_voter_ids = set(poll.voters.filter().values_list('voter_login_id', flat=True))
+          existing = root_voter_ids.intersection(poll_voter_ids)
+          missing = root_voter_ids.difference(poll_voter_ids)
+          stray = poll_voter_ids.difference(root_voter_ids)
+          self.logger.info("Sync: Update %d existing voters", len(existing))
+          self.logger.info("Sync: Create %d missing voters", len(missing))
+          self.logger.error("Sync: Remove %d stray voters", len(stray))
+
+          for root in self.voters.filter(voter_login_id__in=missing):
+                voter_uuid = str(uuid.uuid4())
+                voter = Voter(uuid=voter_uuid, poll=poll)
+                voter.generate_password()
+                voter.init_audit_passwords()
+                self.sync_voter(root, voter)
+                voter.save()
+
+          for root in self.voters.filter(voter_login_id__in=existing):
+              voter = poll.voters.get(voter_login_id=root.voter_login_id)
+              self.sync_voter(root, voter)
+              voter.save()
+
+          for voter in poll.voters.filter(voter_login_id__in=stray):
+              assert not voter.vote
+              voter.delete()
 
   @property
   def logger(self):
@@ -1581,20 +1660,17 @@ class VoterFile(models.Model):
           raise exceptions.VoterLimitReached("No more voters for demo account")
 
       linked_polls = poll.linked_polls
-      if not linked:
-          linked_polls = linked_polls.filter(pk=poll.pk)
-
-      for poll in linked_polls:
+      for _poll in linked_polls:
         new_voters = []
         voter = None
         try:
-            voter = Voter.objects.get(poll=poll, voter_login_id=voter_id)
+            voter = Voter.objects.get(poll=_poll, voter_login_id=voter_id)
         except Voter.DoesNotExist:
             pass
         if not voter:
             voter_uuid = str(uuid.uuid4())
             voter = Voter(uuid=voter_uuid, voter_login_id=voter_id,
-                        voter_name=name, voter_email=email, poll=poll,
+                        voter_name=name, voter_email=email, poll=_poll,
                         voter_surname=surname, voter_fathername=fathername,
                         voter_mobile=mobile, voter_weight=weight)
             voter.init_audit_passwords()
@@ -1747,8 +1823,16 @@ class Voter(HeliosModel, VoterFeatures):
       return self.cast_votes.count() > 0
 
   @property
+  def voted_linked(self):
+      return any([v.voted for v in self.linked_voters])
+
+  @property
   def participated_in_forum(self):
       return self.post_set.count() > 0
+
+  @property
+  def participated_in_forum_linked(self):
+      return any([v.participated_in_forum for v in self.linked_voters])
 
   @property
   def forum_posts_count(self):
