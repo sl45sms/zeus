@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-20 12:46+0300\n"
+"POT-Creation-Date: 2018-09-11 13:16+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -110,9 +110,6 @@ msgstr "Εφορευτική επιτροπή"
 
 msgid "Multiple mixnets"
 msgstr "Πολλαπλές μίξεις"
-
-msgid "Linked polls (experimental)"
-msgstr "Ενεργοποίηση συνδεδεμένων καλπών (πειραματικό)"
 
 msgid "English"
 msgstr "Αγγλικά"
@@ -249,6 +246,9 @@ msgstr "Ο λογαριασμός είναι απενεργοποιημένος"
 msgid "Poll forum enabled"
 msgstr "Η διαβούλευση είναι ενεργοποιημένη"
 
+msgid "Link voters list to another poll"
+msgstr "Χρήση λίστας ψηφοφόρων απο άλλη κάλπη"
+
 #, python-format
 msgid "Voting starts at %s"
 msgstr "Έναρξη της ψηφοφορίας στις %s"
@@ -259,6 +259,9 @@ msgstr "Ταυτοποίηση 2-factor"
 msgid "2-factor authentication help text"
 msgstr ""
 "Προαιρετικά επιλέξτε μέθοδο 2ου βήματος/παράγοντα ταυτοποίησης ψηφοφόρων"
+
+msgid "Invalid poll"
+msgstr "Μη έγκυρη επιλογή κάλπης"
 
 msgid "Forum should start before voting."
 msgstr ""
@@ -734,11 +737,11 @@ msgid "You have successfully unsubscribed from forum notifications."
 msgstr ""
 "Οι ειδοποιήσεις για τη δραστηριότητα της διαβούλευσης έχουν απενεργοποιηθεί."
 
-msgid "Invalid batch file contents"
-msgstr "Μη αποδεκτό αρχείο"
-
 msgid "Poll updated successfully"
 msgstr "Η κάλπη ανανεώθηκε επιτυχώς"
+
+msgid "Unlink linked polls in order to be able to delete the poll."
+msgstr "Η ενέργεια διαγραφής απαιτεί αποσύνδεση της λίστας ψηφοφόρων."
 
 msgid "Unicode"
 msgstr "Unicode"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-22 20:13+0300\n"
+"POT-Creation-Date: 2018-09-11 13:17+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,9 +47,6 @@ msgstr "Ανεπίσημη"
 
 msgid "Official"
 msgstr "Επίσημη"
-
-msgid "Linked polls"
-msgstr "Συνδεδεμένες κάλπες"
 
 msgid "Election type"
 msgstr "Τύπος ψηφοφορίας"
@@ -166,9 +163,6 @@ msgstr "Οριστικοποιημένη"
 
 msgid "Election pending to freeze"
 msgstr "Αναμονή για οριστικοποίηση της ψηφοφορίας"
-
-msgid "Poll link group"
-msgstr "Όνομα γκρούπ κάλπης"
 
 msgid "Poll reference id"
 msgstr "Όνομα αντιστοιχίας κάλπης"
@@ -538,6 +532,10 @@ msgstr "Είσοδος στο ηλεκτρονικό παραπέτασμα"
 msgid "No cast yet"
 msgstr "Χωρίς ψήφο"
 
+#, python-format
+msgid "Last vote cast at %(last_cast_date)s (%(last_cast_time)s)"
+msgstr "Τελευταία υποβολή ψήφου στις  %(last_cast_date)s (%(last_cast_time)s)"
+
 msgid "Waiting for forum to start."
 msgstr "Αναμονή για την έναρξη της διαβούλευσης"
 
@@ -825,9 +823,6 @@ msgstr ""
 
 msgid "Election Polls"
 msgstr "Οι κάλπες της ψηφοφορίας"
-
-msgid "Batch polls update"
-msgstr "Μαζική ανανέωση καλπών"
 
 msgid "No audited ballots posted yet"
 msgstr "Δεν έχουν ληφθεί ακόμη ψήφοι ελέγχου"
