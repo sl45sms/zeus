@@ -12,7 +12,7 @@ class TestLinkedPollsElection(TestElectionBase):
             'el': ['pdf', 'csv', 'zip']
             }
         if self.local_verbose:
-            print '* Starting party election *'
+            print '* Starting linked-polls party election *'
 
     def create_questions(self):
         nr_questions = self.party_election_max_questions_number
