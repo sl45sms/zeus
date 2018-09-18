@@ -43,4 +43,7 @@ def get_client(election, data, **kwargs):
     ))
     if settings.SMS_BACKEND == 'file':
         return FileClient(sender, username, password, **kwargs)
+    if settings.SMS_BACKEND == 'debug':
+        from zeus.mobile.debug import Client as DebugClient
+        return DebugClient(sender, username, password, **kwargs)
     return mybsms.Client(sender, username, password, **kwargs)
