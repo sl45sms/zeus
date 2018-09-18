@@ -208,9 +208,13 @@ class ElectionForm(forms.ModelForm):
         }
         self.fields['departments'].widget.attrs['data-labels'] = json.dumps(deps_labels)
         self.fields['departments'].widget.attrs['data-help'] = json.dumps(deps_help_texts)
-        if 'election_module' in self.data:
-            if self.data['election_module'] not in ['unicouncilsgr', 'stv']:
-                self.fields['departments'].required = False
+        self.fields['departments'].required = False
+
+        _module = self.data.get('election_module', None)
+        _module = _module or (self.instance and self.instance.election_module)
+        if _module in ['unicouncilsgr', 'stv']:
+            self.fields['departments'].required = True
+
         if self.instance and self.instance.pk:
             self.fields.get('trustees').initial = \
                 election_trustees_to_text(self.instance)
