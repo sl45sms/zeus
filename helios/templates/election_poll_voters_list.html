@@ -10,6 +10,18 @@
 {% block content %}
 
 <div class="row content-header">
+        {% if admin %}
+        {% if poll.is_linked_leaf %}
+    <div class="columns twelve">
+        <div id="site-messages" class="messages" style="margin-bottom: 10px;">
+            <div class="label medium" style="background-color: #a52a2a">
+                {% url "election_poll_voters" election.uuid poll.linked_to_poll.uuid as root_poll_url %}
+                {% blocktrans with url=root_poll_url name=poll.linked_to_poll.name %}Voters management actions are only available at <a href="{{ url }}">{{ name }}</a>{% endblocktrans %}
+            </div>
+        </div>
+    </div>
+        {% endif %}
+        {% endif %}
     <div class="columns seven">
     <div class="columns six" style="padding-left:0;">
         <h6>{% trans "Total voters count" %}: <span>{{ voters_count }}</span></h6>
@@ -184,21 +196,25 @@
     {% trans "Voter actions" %}&nbsp;
     <ul>
 
-    {% if poll.feature_can_send_voter_mail %}
-        {% trans "Notify voters" as label %}
-        {% url "election_poll_voter_email" election.uuid poll.uuid voter.uuid as email_url %}
-        {% menu_action label email_url "mail" %}
-    {% endif %}
-
-    {% if not voter.voted_linked and not voter.participated_in_forum_linked and poll.feature_can_delete_voter %}
-        {% url "election_poll_voter_delete" election.uuid poll.uuid voter.uuid as delete_url %}
-        {% trans "Delete voter" as label %}
-        {% menu_confirm_action label delete_url voter_remove_confirm "remove" "POST" "alert"%}
+    {% if poll.is_linked_leaf %}
+    <li><a href="">{% trans "No actions available" %}</a></li>
     {% else %}
-        {% if not voter.excluded_at and poll.feature_can_exclude_voter %}
-            {% url "election_poll_voter_exclude" election.uuid poll.uuid voter.uuid as exclude_url%}
-            {% trans "Exclude voter" as label %}
-            {% menu_confirm_action label exclude_url voter_exclude_confirm "remove" %}
+        {% if poll.feature_can_send_voter_mail %}
+            {% trans "Notify voters" as label %}
+            {% url "election_poll_voter_email" election.uuid poll.uuid voter.uuid as email_url %}
+            {% menu_action label email_url "mail" %}
+        {% endif %}
+
+        {% if not voter.voted_linked and not voter.participated_in_forum_linked and poll.feature_can_delete_voter %}
+            {% url "election_poll_voter_delete" election.uuid poll.uuid voter.uuid as delete_url %}
+            {% trans "Delete voter" as label %}
+            {% menu_confirm_action label delete_url voter_remove_confirm "remove" "POST" "alert"%}
+        {% else %}
+            {% if not voter.excluded_at and poll.feature_can_exclude_voter %}
+                {% url "election_poll_voter_exclude" election.uuid poll.uuid voter.uuid as exclude_url%}
+                {% trans "Exclude voter" as label %}
+                {% menu_confirm_action label exclude_url voter_exclude_confirm "remove" %}
+            {% endif %}
         {% endif %}
     {% endif %}
 
