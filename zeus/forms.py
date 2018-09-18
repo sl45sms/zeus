@@ -2,6 +2,7 @@
 """
 Forms for Zeus
 """
+import re
 import uuid
 import copy
 import json
@@ -1128,6 +1129,7 @@ class ChangePasswordForm(forms.Form):
 class VoterLoginForm(forms.Form):
 
     login_id = forms.CharField(label=_('Login password'), required=True)
+    validation = re.compile("[0-9]{1,10}-[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}")
 
     def __init__(self, *args, **kwargs):
         self._voter = None
@@ -1137,6 +1139,9 @@ class VoterLoginForm(forms.Form):
         cleaned_data = super(VoterLoginForm, self).clean()
 
         login_id = self.cleaned_data.get('login_id')
+        matches = filter(bool, self.validation.findall(login_id))
+        if len(matches):
+            login_id = matches[0]
 
         invalid_login_id_error = _("Invalid login code")
         if not login_id:
