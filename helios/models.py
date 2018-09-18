@@ -1780,6 +1780,13 @@ class Voter(HeliosModel, VoterFeatures):
 
   user = None
 
+  def update_last_visit(self, date):
+      self.last_visit = date
+      for voter in self.linked_voters:
+          voter.last_visit = date
+          voter.save()
+      self.save()
+
   def notify(self, method, subject, body, vars):
       backend = self.get
 

@@ -168,7 +168,7 @@ def index(request, election, poll=None):
         voter = request.voter
         votes = voter.get_cast_votes()
         if election.frozen_at:
-            voter.last_visit = datetime.datetime.now()
+            voter.update_last_visit(datetime.datetime.now())
             voter.save()
         else:
             votes = None
