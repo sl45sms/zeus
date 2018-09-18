@@ -232,13 +232,9 @@ def voters_list(request, election, poll):
 @auth.requires_poll_features('can_clear_voters')
 @transaction.atomic
 @require_http_methods(["POST"])
-@redirects_to_linked
 def voters_clear(request, election, poll):
     polls = poll.linked_polls
     q_param = request.POST.get('q_param', None)
-    process_linked = request.GET.get('no-linked', False) is False
-    if not process_linked:
-        polls = polls.filter(pk=poll.pk)
 
     for p in polls:
         voters = p.voters.all()
