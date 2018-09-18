@@ -690,11 +690,11 @@ class Election(ElectionTasks, HeliosModel, ElectionFeatures):
         if not self.uuid:
             self.uuid = unicode(uuid.uuid4())
         if not self.short_name:
-            self.short_name = slughifi(self.name)
+            self.short_name = slughifi(self.name)[:100]
             es = Election.objects.filter()
             count = 1
             while es.filter(short_name=self.short_name).count() > 0:
-                self.short_name = slughifi(self.name) + '-%d' % count
+                self.short_name = slughifi(self.name)[:100] + '-%d' % count
                 count += 1
 
         super(Election, self).save(*args, **kwargs)
@@ -1455,11 +1455,11 @@ class Poll(PollTasks, HeliosModel, PollFeatures):
     if not self.uuid:
       self.uuid = str(uuid.uuid4())
     if not self.short_name:
-      self.short_name = slughifi(self.name)
+      self.short_name = slughifi(self.name)[:100]
       es = self.election.polls.filter()
       count = 1
       while es.filter(short_name=self.short_name).count() > 0:
-        self.short_name = slughifi(self.name) + '-%d' % count
+        self.short_name = slughifi(self.name)[:100] + '-%d' % count
         count += 1
     super(Poll, self).save(*args, **kwargs)
 
