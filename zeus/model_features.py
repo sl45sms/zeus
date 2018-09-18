@@ -272,7 +272,7 @@ class PollFeatures(FeaturesMixin):
 
     @poll_feature()
     def _feature_edit_forum(self):
-        return not self.feature_frozen
+        return not self.feature_frozen and not self.linked_ref
 
     @poll_feature()
     def _feature_edit_name(self):

@@ -938,6 +938,14 @@ class PollForm(forms.ModelForm):
 
         data = self.cleaned_data
         election_polls = self.election.polls.all()
+
+        enabled = self.cleaned_data.get('forum_enabled')
+        linked_ref = self.cleaned_data.get('linked_ref')
+        if enabled and linked_ref:
+            msg = [_("Forum cannot be enabled for linked polls")]
+            self._errors["forum_enabled"] = msg
+            self._errors["linked_ref"] = msg
+
         for poll in election_polls:
             if (data.get('name') == poll.name and
                     ((not self.instance.pk ) or
