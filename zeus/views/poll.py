@@ -242,6 +242,8 @@ def voters_clear(request, election, poll):
             voters = election.get_module().filter_voters(voters, q_param, request)
 
         for voter in voters:
+            if voter.voted_linked or voter.participated_in_forum_linked:
+                raise PermissionDenied('36')
             if not voter.cast_votes.count():
                 voter.delete()
         p.logger.info("Poll voters cleared")
@@ -631,6 +633,7 @@ def voter_delete(request, election, poll, voter_uuid):
     if voter.voted_linked or voter.participated_in_forum_linked:
         raise PermissionDenied('36')
 
+    deleted = False
     for _poll in linked_polls:
         voter = None
         try:
@@ -643,8 +646,11 @@ def voter_delete(request, election, poll, voter_uuid):
         elif voter:
             voter.delete()
             _poll.logger.info("Poll voter '%s' removed", voter.voter_login_id)
-            message = _("Voter removed successfully")
-            messages.success(request, message)
+            deleted = True
+
+    if deleted:
+        message = _("Voter removed successfully")
+        messages.success(request, message)
 
     url = poll_reverse(poll, 'voters')
     return HttpResponseRedirect(url)
