@@ -1,18 +1,4 @@
-{% extends "election_page.html" %}{% load i18n %}
-{% load zeus_tags %}
-
-{% block title %}
-{{ election.name }}: {{ module.questions_title_message }}
-{% endblock %}
-{% block tabs_menu %}
-{% include "_election_view_menu.html" %}
-{% endblock %}
-
-{% block extra_menu %}
-{% include "_election_poll_admin_actions.html" %}
-{% endblock %}
-
-{% block content %}
+{% load zeus_tags i18n %}
 <div class="columns twelve">
   <div class="panel">
 
@@ -67,4 +53,3 @@
 {% endif %}
 </div>
 </div>
-{% endblock %}

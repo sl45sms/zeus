@@ -1,0 +1,22 @@
+{% extends "election_page.html" %}{% load i18n %}
+{% load zeus_tags %}
+
+{% block title %}
+{{ election.name }}: {{ module.questions_title_message }}
+{% endblock %}
+{% block tabs_menu %}
+{% include "_election_view_menu.html" %}
+{% endblock %}
+
+{% block extra_menu %}
+{% include "_election_poll_admin_actions.html" %}
+{% endblock %}
+
+{% block content %}
+{% include questions_tpl %}
+{% if linked_polls %}
+{% for poll in linked_polls %}
+{% include questions_tpl %}
+{% endfor %}
+{% endif %}
+{% endblock %}

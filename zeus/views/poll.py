@@ -139,15 +139,23 @@ def questions(request, election, poll):
             return HttpResponseRedirect(url)
 
     preview_booth_url = poll.get_booth_url(request, preview=True)
+    linked_polls = None
+    if request.zeususer.is_voter and poll.is_linked_root:
+        linked_polls = poll.other_linked_polls
+
+    questions_tpl = \
+        getattr(module, 'questions_list_template', 'election_poll_questions') + ".html"
     context = {
         'election': election,
         'poll': poll,
         'questions': questions,
         'module': poll.get_module(),
-        'preview_booth_url': preview_booth_url
+        'preview_booth_url': preview_booth_url,
+        'questions_tpl': questions_tpl,
+        'linked_polls': linked_polls
     }
     set_menu('questions', context)
-    tpl = getattr(module, 'questions_list_template', 'election_poll_questions')
+    tpl = 'election_poll_questions_wrapper'
     return render_template(request, tpl, context)
 
 
