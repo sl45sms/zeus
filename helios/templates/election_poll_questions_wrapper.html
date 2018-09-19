@@ -13,9 +13,13 @@
 {% endblock %}
 
 {% block content %}
+{% if linked_polls %}
+<h4 style="margin-left: 1.5rem">{{ poll.name }}</h4>
+{% endif %}
 {% include questions_tpl %}
 {% if linked_polls %}
 {% for poll in linked_polls %}
+<h4 style="margin-left: 1.5rem">{{ poll.name }}</h4>
 {% include questions_tpl %}
 {% endfor %}
 {% endif %}
