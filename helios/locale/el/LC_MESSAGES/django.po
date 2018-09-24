@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-11 13:17+0300\n"
+"POT-Creation-Date: 2018-09-24 14:50+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -867,6 +867,14 @@ msgstr "Προεπισκόπηση παραπετάσματος"
 msgid "Total votes"
 msgstr "Σύνολο ψήφων"
 
+#, python-format
+msgid ""
+"Voters management actions are only available at <a href=\"%(url)s\">"
+"%(name)s</a>"
+msgstr ""
+"Οι ενέργειες ψηφοφόρων είναι διαθέσιμες στην κάλπη <a href=\"%(url)s\"> "
+"%(name)s</a>"
+
 msgid "Total voters count"
 msgstr "Σύνολο ψηφοφόρων"
 
@@ -920,6 +928,9 @@ msgstr "(Εξαίρεση)"
 
 msgid "Voter actions"
 msgstr "Επιλογές ψηφοφόρου"
+
+msgid "No actions available"
+msgstr "Μη διαθέσιμες ενέργειες"
 
 msgid "Delete voter"
 msgstr "Διαγραφή ψηφοφόρου"
