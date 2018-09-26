@@ -235,15 +235,32 @@ def make_totals(elements, styles, total_votes, blank_votes):
     elements.append(Spacer(1, 12))
 
 def make_party_list_heading(elements, styles, party, count):
-    heading = '%(title)s: %(count)d' % {'title': party,
-                                        'count': count}
-    elements.append(Paragraph(escape(heading), styles['Zeus']))
-    elements.append(Spacer(1, 12))
+    heading = escape(party).replace("\n", "<br />")
+    count = str(count)
+
+    table_style = TableStyle([('FONT', (0, 0), (-1, -1), 'LinLibertine'),
+                     ('ALIGN',(1,1),(-2,-2),'LEFT'),
+                     ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
+                     ('BOX', (0,0), (-1,-1), 0.25, colors.black),
+                     ('BACKGROUND', (0,0), (-1,-1), colors.lightgrey),
+                     ])
+
+    elements.append(Spacer(1, 32))
+    widths = [PAGE_WIDTH / 1.5, PAGE_WIDTH / 8]
+    heading = Paragraph(heading, styles['Zeus']) 
+    count = Paragraph(count, styles['Zeus']) 
+    t = Table([[heading, count]], colWidths=widths, style = table_style)
+    elements.append(t)
 
 def make_party_list_table(elements, styles, party_results):
 
-    table_style = TableStyle([('FONT', (0, 0), (-1, -1), 'LinLibertine')])
-    t = Table(party_results, style = table_style)
+    table_style = TableStyle([('FONT', (0, 0), (-1, -1),'LinLibertine'),
+                     ('ALIGN',(1,1),(-2,-2),'LEFT'),
+                     ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
+                     ('BOX', (0,0), (-1,-1), 0.25, colors.black),
+                     ])
+    widths = [PAGE_WIDTH / 1.5, PAGE_WIDTH / 8]
+    t = Table(party_results, colWidths=widths, style = table_style)
     elements.append(t)
 
 def make_results(elements, styles, total_votes, blank_votes,
