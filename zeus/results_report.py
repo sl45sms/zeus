@@ -135,9 +135,11 @@ def load_parties_results(data, repr_data, qdata):
     for candidate_result in jsondata['candidate_counts']:
         (result, full_candidate) = candidate_result
         (party, candidate) = full_candidate.split(PARTY_SEPARATOR, 1)
-        party = party.decode("utf8")
+        if len(candidates_results.keys()) and type(candidates_results.keys()[0]) == unicode:
+            party = party.decode("utf8")
         full_candidate = full_candidate.decode("utf8")
         party = parties_indexes[qdata.index(party)]
+        party = party.replace("\r\n", "\n")
         candidate = candidates_indexes[qdata.index(full_candidate)]
         if party in candidates_results:
             candidates_results[party].append((candidate, result))
