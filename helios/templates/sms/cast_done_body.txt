@@ -1,2 +1,2 @@
-{% load i18n %}{% blocktrans with election_name=election.name|truncatechars:50 vote_receipt_url=vote_receipt_url %}You have successfully cast a vote in {{ election_name }}
+{% load i18n %}{% blocktrans with poll_name=poll.name|truncatechars:50 election_name=election.name|truncatechars:50 vote_receipt_url=vote_receipt_url %}You have successfully cast a vote in {{ election_name }} {{ poll_name }}
 {{ vote_receipt_url }}{% endblocktrans %}

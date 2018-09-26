@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-24 14:50+0300\n"
+"POT-Creation-Date: 2018-09-26 11:59+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1687,10 +1687,10 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You have successfully cast a vote in %(election_name)s\n"
+"You have successfully cast a vote in %(election_name)s %(poll_name)s\n"
 "%(vote_receipt_url)s"
 msgstr ""
-"Η ψήφος σας καταχωρίσθηκε επιτυχώς για την ψηφοφορία %(election_name)s\n"
+"Η ψήφος σας καταχωρίσθηκε επιτυχώς για την ψηφοφορία %(election_name)s %(poll_name)s\n"
 "%(vote_receipt_url)s"
 
 #, python-format
