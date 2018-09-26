@@ -414,7 +414,10 @@ class QuestionForm(QuestionBaseForm):
 
 class PartyForm(QuestionForm):
     question = forms.CharField(label=_("Party name"), max_length=255,
-                               required=True)
+                               required=True, widget=forms.Textarea(attrs={
+                                'rows': 4,
+                                'class': 'textarea'
+                               }))
 
 SCORES_DEFAULT_LEN = 2
 SCORES_CHOICES = [(x,x) for x in range(1, 10)]
