@@ -55,6 +55,21 @@ i18n in advance of the following guidelines.
 
 https://docs.djangoproject.com/en/1.7/topics/i18n/translation/
 
+
+Application settings
+********************
+
+To enable additional languages or change the default language used at your
+deployment you should modify the following settings in your `local_settings.py`
+module accordingly::
+
+   LANGUAGE_CODE = 'en-us'
+   LANGUAGES = (('en', 'English'), ('el', 'Greek'), ('<lang-code>', 'My Language'))
+
+
+Add or update I18N messages
+***************************
+
 To add or update a new or existing language translation the following steps
 should be performed,
 
