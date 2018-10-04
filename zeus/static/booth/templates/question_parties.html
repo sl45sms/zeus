@@ -17,7 +17,8 @@
         data-is-party="yes"
         style="white-space: pre"
         class="button enabled medium">{$T.question.question}
-        <span class="question-subtitle">{gettext("UP_TO")} {$T.question.max_answers} {#if $T.question.max_answers == 1}{gettext("CHOICE")}{#else}{gettext("CHOICES")}{#/if}</span>
+        <span class="question-subtitle"> / {gettext("UP_TO")} {$T.question.max_answers} {#if $T.question.max_answers == 1}{gettext("CHOICE")}{#else}{gettext("CHOICES")}{#/if}</span>
+        <span class="question-subtitle">{$T.question.answers.length - 1} {#if ($T.question.answers.length - 1) == 1}{$T.election.module_params.answer_title}{#else}{$T.election.module_params.answer_title_plural}{#/if}</span>
       </a>
       <br />
       </li>

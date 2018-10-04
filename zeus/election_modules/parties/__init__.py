@@ -21,6 +21,7 @@ class PartiesListElection(ElectionModuleBase):
     description = _('Party lists election')
     manage_questions_title = _('Manage ballot')
     messages = {
+        'answer_title_plural': _('Candidates'),
         'answer_title': _('Candidate'),
         'question_title': _('Party'),
     }
