@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n zeus_tags %}
 {% if voter.voter_weight and voter.voter_weight > 1 %}
 <div class="panel voter-weight">
   {% trans "Your vote weight is set to " %} <b>{{ voter.voter_weight}}</b>
@@ -16,20 +16,9 @@
 {% if poll.feature_can_cast_vote %}
 <div id="booth-link" class="button split dropdown" style="margin-bottom: 5px; margin-top: 0">
 {% if poll.has_linked_polls %}
-        <a href="{{ booth_url }}">{% trans "Enter voting booth" %}</a>
-        <span></span>
-        <ul class="election-stats-list">
-          {% for pname, purl, last_cast in linked_booth_urls %}
-          <li>
-          <a href="{{ purl }}">{{ pname }}
-              <em style="color: #aaa; font-size:0.9em">
-                  {% if not last_cast %}{% trans "No cast yet" %}{% else %}
-                  {% blocktrans with last_cast_date=last_cast|date last_cast_time=last_cast|time %}Last vote cast at {{ last_cast_date }} ({{last_cast_time}}){% endblocktrans %}{% endif %}</em>
-          </a>
-          </li>
-          {% endfor %}
-      </ul>
-    {% else %}
+{% trans "Enter voting booth" as booth_login_label %}
+{% reveal_action booth_login_label "#booth-login-action" "" "booth-login" %}
+{% else %}
 <a 
   href="{{ booth_url }}">&nbsp;&nbsp;{% trans "Enter voting booth" %}
 </a>

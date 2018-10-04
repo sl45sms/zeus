@@ -12,6 +12,9 @@
 {% endblock %}
 
 {% block reveals %}
+{% if poll and poll.has_linked_polls %}
+{% include "_reveal_booth_login.html" %}
+{% endif %}
 {% if admin %}
 {% include "_reveal_freeze.html" %}
 {% include "_reveal_close.html" %}

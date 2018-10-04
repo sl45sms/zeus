@@ -1,0 +1,17 @@
+{% load i18n zeus_tags %}
+<div id="booth-login-action" class="reveal-modal booth-login">
+<h3>{% trans "Enter voting booth" %}</h3>
+
+<div class="actions">
+  {% for pname, purl, last_cast in linked_booth_urls %}
+  <a class="button primary" style="display: block" href="{{ purl }}">{{ pname }}
+  </a>
+      <em style="color: #aaa; font-size:0.9em">
+{% if not last_cast %}{% trans "No cast yet" %}{% else %}
+{% blocktrans with last_cast_date=last_cast|date last_cast_time=last_cast|time %}Last vote cast at {{ last_cast_date }} ({{last_cast_time}}){% endblocktrans %}{% endif %}</em>
+<br /><br />
+  {% endfor %}
+  <br /><br />
+  <a class="button close-reveal-modal small alert">{% trans "Back" %}</a>
+</div>
+</div>
