@@ -25,7 +25,7 @@ class FileClient():
     def send(self, mobile, msg, fields={}, uid=None):
         fname = "sms-" + datetime.datetime.now().isoformat() + "-" + mobile.replace("+", "")
         f = file(os.path.join(self.location, fname), "w")
-        f.write(msg)
+        f.write(msg.encode("utf8"))
         f.close()
         self._last_uid = fname
         return True, fname
