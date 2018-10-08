@@ -135,12 +135,21 @@ def get_poll_info(url):
     response = conn.getresponse()
     html = response.read()
 
+    links_re = re.compile("href=\"(.*polls/.*/l/.*)\"")
     try:
-        poll_url = html.split('<div id="booth-link"')[1].split('href="')[1].split('"')[0]
-    except:
-        print html
+        links = links_re.findall(html)
+        poll_id = path.split("/")[-2]
+        poll_url = filter(lambda x: poll_id in x, links)[0]
+    except Exception, e:
         import pdb; pdb.set_trace()
+        print html
         raise
+
+    if 'link-to' in poll_url:
+        conn.request('GET', poll_url, headers=headers)
+        loc = dict(conn.getresponse().getheaders())['location']
+        poll_url = loc
+
     parsed = urlparse(poll_url)
     booth_path = parsed.path
     poll_info = dict(parse_qsl(parsed.query))
