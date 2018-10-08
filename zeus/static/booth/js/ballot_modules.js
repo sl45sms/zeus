@@ -244,7 +244,7 @@ BM.ModuleBase,
   expanded_parties: function() {
     var qnum = this.data.length;
     var ansnum = this.data.reduce((a, q) => a.concat(q.answers), []).length;
-    return !(qnum > 1 && ansnum > 20);
+    return qnum == 1;
   },
 
   can_add: function(choice, question) {
