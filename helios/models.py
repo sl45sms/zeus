@@ -22,6 +22,7 @@ import mmap
 import marshal
 import itertools
 import urllib
+import re
 
 from functools import wraps
 from datetime import timedelta
@@ -931,15 +932,19 @@ class Poll(PollTasks, HeliosModel, PollFeatures):
   def is_linked(self):
       return self.linked_ref or self.has_linked_polls
 
-  def next_linked_poll(self, voter_id=None, exclude_cast_done=True):
+  def next_linked_poll(self, voter_id=None, exclude_cast_done=True, cyclic=False):
       polls = self.other_linked_polls
-      if polls.filter(pk__gt=self.pk).count():
+      is_last = polls.filter(pk__gt=self.pk).count() == 0
+      if is_last:
+          if not cyclic:
+              return None
+      else:
           polls = polls.filter(pk__gt=self.pk)
-      elif voter_id:
-          if exclude_cast_done:
-              polls = polls.filter(voters__voter_login_id=voter_id, voters__cast_at__isnull=True)
-          else:
-              polls = polls.filter(voters__cast_at__isnull=True)
+
+      if voter_id and exclude_cast_done:
+          polls = polls.filter(voters__voter_login_id=voter_id,
+                               voters__cast_at__isnull=True)
+
       if polls.count():
           return polls[0]
       return None

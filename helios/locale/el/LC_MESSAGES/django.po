@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-08 12:07+0300\n"
+"POT-Creation-Date: 2018-10-08 18:50+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -543,6 +543,12 @@ msgstr "Η ψηφοφορία έχει λήξει"
 
 msgid "Election completed."
 msgstr "Η ψηφοφορία έχει ολοκληρωθεί"
+
+msgid "Cast vote for all polls"
+msgstr "Υποβολή ψήφου σε όλες τις κάλπες"
+
+msgid "System will guide you through all polls."
+msgstr "Το σύστημα θα σας καθοδηγήσει σε όλες τις κάλπες της ψηφοφορίας"
 
 msgid "No cast yet"
 msgstr "Δεν έχετε ψηφίσει ακόμη"

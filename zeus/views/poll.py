@@ -699,6 +699,10 @@ def voters_csv(request, election, poll, fname):
 def voter_booth_linked_login(request, election, poll, voter_uuid):
     voter = request.zeususer._user
     linked_poll = request.GET.get('link-to', None)
+
+    follow = bool(request.GET.get('follow', False))
+    request.session['follow_linked'] = follow
+
     if not poll.has_linked_polls:
         raise PermissionDenied()
     if not linked_poll or linked_poll not in \
@@ -874,7 +878,15 @@ def cast_done(request, election, poll):
     if request.zeususer.is_authenticated() and request.zeususer.is_voter:
         if poll.has_linked_polls:
             voter = request.zeususer._user
-            next_poll = poll.next_linked_poll(voter_id=voter.voter_login_id)
+
+            follow = request.session.get('follow_linked', False)
+            exclude_cast_done = not follow
+            cyclic = not follow
+
+            next_poll = poll.next_linked_poll(
+                            voter_id=voter.voter_login_id,
+                            exclude_cast_done=exclude_cast_done,
+                            cyclic=cyclic)
             if next_poll:
                 try:
                     voter = next_poll.voters.get(
@@ -885,6 +897,8 @@ def cast_done(request, election, poll):
                     return HttpResponseRedirect(url)
                 except Voter.DoesNotExist:
                     pass
+            else:
+                del request.session['follow_linked']
         request.zeususer.logout(request)
 
     fingerprint = request.GET.get('f')

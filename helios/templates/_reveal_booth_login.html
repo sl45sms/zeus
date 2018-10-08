@@ -3,8 +3,18 @@
 <h3>{% trans "Enter voting booth" %}</h3>
 
 <div class="actions">
+    <br />
+
   {% for pname, purl, last_cast in linked_booth_urls %}
-  <a class="button primary" style="display: block" href="{{ purl }}">{{ pname }}
+  {% if forloop.counter == 1 %}
+  <a class="button primary" style="text-align: left; display: block; margin-bottom: 3px;" href="{{ purl }}&follow=1">{% trans "Cast vote for all polls" %}
+  </a>
+      <em style="color: #aaa; font-size:0.9em">{% trans "System will guide you through all polls." %}</em>
+      <br/>
+      <hr />
+      <h5>{% trans "Polls" %}</h5>
+  {% endif %}
+  <a class="button primary" style="text-align: left; display: block; margin-bottom: 3px;" href="{{ purl }}">{{ pname }}
   </a>
       <em style="color: #aaa; font-size:0.9em">
 {% if not last_cast %}{% trans "No cast yet" %}{% else %}
