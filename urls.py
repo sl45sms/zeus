@@ -29,6 +29,7 @@ admin_urls = patterns('zeus.views.admin',
 
 app_patterns += patterns(
     '',
+    url(r'^vote/(?P<lang>[a-z]{2}.*)/', 'zeus.views.auth.voter_login', name='voter_quick_login'),
     url(r'^vote', 'zeus.views.auth.voter_login', name='voter_quick_login'),
     url(r'^f/(?P<fingerprint>.*)', 'zeus.views.poll.download_signature_short', name='download_signature_short'),
     (r'^', include('zeus.urls.site')),

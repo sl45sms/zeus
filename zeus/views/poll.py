@@ -468,6 +468,7 @@ def voters_email(request, election, poll=None, voter_uuid=None):
             'custom_message_sms': '&lt;SMS_BODY&gt;',
             'SECURE_URL_HOST': settings.SECURE_URL_HOST,
             'poll': poll_data,
+            'voter_url': election.voter_code_login_url,
             'voter': {
                 'vote_hash' : '<SMART_TRACKER>',
                 'name': '<VOTER_NAME>',
@@ -552,6 +553,7 @@ def voters_email(request, election, poll=None, voter_uuid=None):
                     'custom_message' : email_form.cleaned_data['email_body'],
                     'custom_message_sms' : email_form.cleaned_data['sms_body'],
                     'election_url' : election_url,
+                    'voter_url': election.voter_code_login_url
                 }
                 task_kwargs = {
                     'contact_id': template,

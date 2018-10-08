@@ -25,6 +25,7 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.views.decorators.http import require_http_methods
 from django.utils.translation import ugettext_lazy as _
+from django.utils import translation
 
 from helios.view_utils import render_template
 from helios.models import Voter, Poll
@@ -37,7 +38,10 @@ logger = logging.getLogger(__name__)
 
 @auth.unauthenticated_user_required
 @require_http_methods(["POST", "GET"])
-def voter_login(request):
+def voter_login(request, lang=None):
+    if lang and lang in dict(settings.LANGUAGES):
+        translation.activate(lang)
+
     form_cls = VoterLoginForm
     form = VoterLoginForm()
     if request.method == 'POST':

@@ -66,7 +66,7 @@ from zeus.model_features import ElectionFeatures, PollFeatures, \
 from zeus.model_tasks import TaskModel, PollTasks, ElectionTasks
 from zeus import help_texts as help
 from zeus.log import init_election_logger, init_poll_logger
-from zeus.utils import decalize, CSVReader
+from zeus.utils import decalize, undecalize, CSVReader
 
 
 logger = logging.getLogger(__name__)
@@ -355,6 +355,23 @@ class Election(ElectionTasks, HeliosModel, ElectionFeatures):
             for poll in self.polls.all():
                 poll.mixes.filter(mix_order__gt=0).delete()
 
+
+    @property
+    def voter_code_login_url(self):
+        default = settings.SECURE_URL_HOST + reverse('voter_quick_login', args=(self.communication_language,))
+        return self._owner_override('VOTERS_LOGIN_URL', default)
+
+    def _owner_override(self, setting, default):
+        return getattr(settings, setting, {}).get(self.created_by.user_id, default)
+
+    @property
+    def created_by(self):
+        return self.admins.filter()[0]
+
+    @property
+    def voter_password_len(self):
+        default = getattr(settings, 'DEFAULT_VOTER_PASSWORD_SIZE', 12)
+        return self._owner_override('VOTER_PASSWORD_SIZE', default)
 
     @property
     def sms_credentials(self):
@@ -1821,6 +1838,18 @@ class Voter(HeliosModel, VoterFeatures):
       self.user = User(user_type='password', user_id=self.voter_email,
                        name=u"%s %s" % (self.voter_name, self.voter_surname))
 
+  @staticmethod
+  def extract_login_code(code):
+      if '-' in code:
+          poll_id, secret = code.split("-", 1)
+          secret = undecalize(secret)
+          return poll_id, secret
+
+      poll_pos = len(code) % 4
+      poll = code[:poll_pos]
+      code = code[poll_pos:]
+      return poll, undecalize(code)
+
   @property
   def login_code(self):
       return "%d-%s" % (self.poll.pk, decalize(str(self.voter_password)))
@@ -2023,13 +2052,14 @@ class Voter(HeliosModel, VoterFeatures):
   def send_message(self, subject, body):
     self.user.send_message(subject, body)
 
-  def generate_password(self, length=10):
-    if not self.voter_password:
-      self.voter_password = heliosutils.random_string(12)
+  def generate_password(self, force=False, size=None):
+    size = size or self.poll.election.voter_password_len
+    if not self.voter_password or force:
+      self.voter_password = heliosutils.random_string(size)
       existing = Voter.objects.filter(
           poll=self.poll).exclude(pk=self.pk)
       while existing.filter(voter_password=self.voter_password).count() > 1:
-        self.voter_password = heliosutils.random_string(12)
+        self.voter_password = heliosutils.random_string(size)
 
   def store_vote(self, cast_vote):
     # only store the vote if it's cast later than the current one
@@ -2304,13 +2334,13 @@ class Trustee(HeliosModel, TrusteeFeatures):
             except TrusteeDecryptionFactors.DoesNotExist:
                 yield (poll, None)
 
-    def generate_password(self):
-        if not self.secret:
-            self.secret = heliosutils.random_string(12)
+    def generate_password(self, force=False, size=12):
+        if not self.secret or force:
+            self.secret = heliosutils.random_string(size)
             existing = Trustee.objects.filter(
                 election=self.election).exclude(pk=self.pk)
             while existing.filter(secret=self.secret).count() > 1:
-                self.secret = heliosutils.random_string(12)
+                self.secret = heliosutils.random_string(size)
 
     def save(self, *args, **kwargs):
         if not self.uuid:

@@ -1136,7 +1136,8 @@ class ChangePasswordForm(forms.Form):
 class VoterLoginForm(forms.Form):
 
     login_id = forms.CharField(label=_('Login password'), required=True)
-    validation = re.compile("[0-9]{1,10}-[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}")
+    validation = re.compile("[0-9]{1,10}-(?:[0-9]{4}-){3,}[0-9]{4}")
+    validation_digits = re.compile("[0-9]{17,}")
 
     def __init__(self, *args, **kwargs):
         self._voter = None
@@ -1149,14 +1150,17 @@ class VoterLoginForm(forms.Form):
         matches = filter(bool, self.validation.findall(login_id))
         if len(matches):
             login_id = matches[0]
+        else:
+            matches = filter(bool, self.validation_digits.findall(login_id))
+            if len(matches):
+                login_id = matches[0]
 
         invalid_login_id_error = _("Invalid login code")
         if not login_id:
             raise forms.ValidationError(invalid_login_id_error)
 
         try:
-            poll_id, secret = login_id.split("-", 1)
-            secret = undecalize(secret)
+            poll_id, secret = Voter.extract_login_code(login_id)
         except ValueError:
             raise forms.ValidationError(invalid_login_id_error)
 
