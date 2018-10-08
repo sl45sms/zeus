@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-26 11:59+0300\n"
+"POT-Creation-Date: 2018-10-08 12:07+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -529,13 +529,6 @@ msgstr "Συμμετοχή στη διαβούλευση"
 msgid "Enter voting booth"
 msgstr "Είσοδος στο ηλεκτρονικό παραπέτασμα"
 
-msgid "No cast yet"
-msgstr "Χωρίς ψήφο"
-
-#, python-format
-msgid "Last vote cast at %(last_cast_date)s (%(last_cast_time)s)"
-msgstr "Τελευταία υποβολή ψήφου στις  %(last_cast_date)s (%(last_cast_time)s)"
-
 msgid "Waiting for forum to start."
 msgstr "Αναμονή για την έναρξη της διαβούλευσης"
 
@@ -551,6 +544,16 @@ msgstr "Η ψηφοφορία έχει λήξει"
 msgid "Election completed."
 msgstr "Η ψηφοφορία έχει ολοκληρωθεί"
 
+msgid "No cast yet"
+msgstr "Χωρίς ψήφο"
+
+#, python-format
+msgid "Last vote cast at %(last_cast_date)s (%(last_cast_time)s)"
+msgstr "Τελευταία υποβολή ψήφου στις  %(last_cast_date)s (%(last_cast_time)s)"
+
+msgid "Back"
+msgstr "Πίσω"
+
 msgid "Election cancel message"
 msgstr "Είστε σίγουρος/η ότι θέλετε να ακυρώσετε οριστικά την ψηφοφορία;"
 
@@ -559,9 +562,6 @@ msgstr "Λόγος ακύρωσης"
 
 msgid "Confirm election cancel"
 msgstr "Επιβεβαιώστε την ακύρωση της ψηφοφορίας"
-
-msgid "Back"
-msgstr "Πίσω"
 
 msgid "Election close message"
 msgstr ""
@@ -1690,7 +1690,8 @@ msgid ""
 "You have successfully cast a vote in %(election_name)s %(poll_name)s\n"
 "%(vote_receipt_url)s"
 msgstr ""
-"Η ψήφος σας καταχωρίσθηκε επιτυχώς για την ψηφοφορία %(election_name)s %(poll_name)s\n"
+"Η ψήφος σας καταχωρίσθηκε επιτυχώς για την ψηφοφορία %(election_name)s "
+"%(poll_name)s\n"
 "%(vote_receipt_url)s"
 
 #, python-format
@@ -1703,6 +1704,15 @@ msgstr ""
 "ΕΚΛΟΓΕΣ ΖΕΥΣ %(election_name)s ΠΑΡΑΤΑΣΗ ΨΗΦΟΥ ΕΩΣ ΤΙΣ %(ext_date)s: Ο ΑΜ "
 "%(voter_login_id)s ΨΗΦΙΖΕΙ ΣΤΟ %(voter_url)s - ΚΩΔΙΚΟΣ: %(voter_login_code)s"
 "%(custom_message_sms)s"
+
+#, python-format
+msgid ""
+"ZEUS ELECTION %(election_name)s: VOTER WITH REG CODE %(voter_login_id)s\n"
+"VOTES TO %(voter_url)s - LOGIN CODE: %(voter_login_code)s "
+"%(custom_message_sms)s"
+msgstr ""
+"ΕΚΛΟΓΕΣ ΖΕΥΣ %(election_name)s: Ο ΑΜ %(voter_login_id)s ΨΗΦΙΖΕΙ ΣΤΟ "
+"%(voter_url)s - ΚΩΔΙΚΟΣ: %(voter_login_code)s%(custom_message_sms)s"
 
 #, python-format
 msgid ""
