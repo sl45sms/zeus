@@ -1845,11 +1845,7 @@ class Voter(HeliosModel, VoterFeatures):
 
   @staticmethod
   def extract_login_code(code):
-      if '-' in code:
-          poll_id, secret = code.split("-", 1)
-          secret = undecalize(secret)
-          return poll_id, secret
-
+      code = re.sub("\s|-", "", code)
       poll_pos = (len(code) % 4) or 4
       poll = code[:poll_pos].strip()
       code = code[poll_pos:].strip()
