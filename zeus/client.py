@@ -147,8 +147,10 @@ def get_poll_info(url):
 
     if 'link-to' in poll_url:
         conn.request('GET', poll_url, headers=headers)
-        loc = dict(conn.getresponse().getheaders())['location']
-        poll_url = loc
+        response = conn.getresponse()
+        _headers = response.getheaders()
+        body = response.read()
+        poll_url = dict(_headers).get('location')
 
     parsed = urlparse(poll_url)
     booth_path = parsed.path
