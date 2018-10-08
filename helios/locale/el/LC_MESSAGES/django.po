@@ -545,7 +545,7 @@ msgid "Election completed."
 msgstr "Η ψηφοφορία έχει ολοκληρωθεί"
 
 msgid "No cast yet"
-msgstr "Χωρίς ψήφο"
+msgstr "Δεν έχετε ψηφίσει ακόμη"
 
 #, python-format
 msgid "Last vote cast at %(last_cast_date)s (%(last_cast_time)s)"
