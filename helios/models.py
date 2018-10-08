@@ -1845,9 +1845,11 @@ class Voter(HeliosModel, VoterFeatures):
           secret = undecalize(secret)
           return poll_id, secret
 
-      poll_pos = len(code) % 4
-      poll = code[:poll_pos]
-      code = code[poll_pos:]
+      poll_pos = (len(code) % 4) or 4
+      poll = code[:poll_pos].strip()
+      code = code[poll_pos:].strip()
+      if not all([poll, code]):
+           raise ValueError("Invalid code")
       return poll, undecalize(code)
 
   @property
