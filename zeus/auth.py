@@ -15,7 +15,8 @@ from django.conf import settings
 from helios.models import Election, Poll, Trustee, Voter
 from heliosauth.models import User
 
-from zeus.log import init_election_logger, init_poll_logger, _locals
+from zeus.log import init_election_logger, init_poll_logger, _locals, \
+    _close_logger
 
 import logging
 logger = logging.getLogger(__name__)
@@ -79,7 +80,13 @@ def election_view(check_access=True):
                     raise PermissionDenied("Poll cannot be accessed by you")
                 kwargs['poll'] = poll
 
-            return func(request, *args, **kwargs)
+            resp = func(request, *args, **kwargs)
+            if 'poll' in kwargs:
+                _close_logger(kwargs['poll'])
+            if 'election' in kwargs:
+                _close_logger(kwargs['election'])
+
+            return resp
         return inner
     return wrapper
 

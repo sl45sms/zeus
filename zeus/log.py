@@ -23,6 +23,18 @@ def _get_user_id(user=None):
     return user_id
 
 
+def _close_logger(inst):
+    logger = None
+    if hasattr(inst, '_logger'):
+        inst = inst._logger
+
+    if hasattr(inst, 'logger'):
+        logger = inst.logger
+
+    if logger:
+        for handler in logger.handlers:
+            hasattr(handler, 'close') and handler.close()
+
 def _get_logger(uuid, obj, user, fmt, extra={}):
     user_id = _get_user_id(user)
     key = '%s_%s' % (obj.__class__.__name__, obj.uuid)
@@ -49,7 +61,7 @@ def _get_logger(uuid, obj, user, fmt, extra={}):
         return logging.LoggerAdapter(logger, extra)
 
     log_file_path = os.path.join(ELECTION_LOG_DIR, '%s.log' % uuid)
-    fh = logging.FileHandler(log_file_path)
+    fh = logging.FileHandler(log_file_path, delay=True)
     fh.setLevel(logging.DEBUG)
 
     _fmt = '%(asctime)s - %(ip)s - %(user)s - ' + fmt + '%(levelname)s - %(message)s'
