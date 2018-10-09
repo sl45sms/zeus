@@ -183,22 +183,13 @@ def do_cast_vote(conn, cast_path, token, headers, vote):
         print response.status
     conn.close()
 
-def cast_vote(voter_url, choices=None):
-    conn, headers, poll_info = get_poll_info(voter_url)
-    csrf_token = poll_info['token']
-    headers['Cookie'] += "; csrftoken=%s" % csrf_token
-    headers['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8'
-    headers['Referer'] = voter_url
-
-    voter_path = conn.path
-    poll_data = poll_info['poll_data']
+def _make_vote(poll_data):
     pk = poll_data['public_key']
     p = int(pk['p'])
     g = int(pk['g'])
     q = int(pk['q'])
     y = int(pk['y'])
     candidates = poll_data['questions'][0]['answers']
-    cast_path = poll_data['cast_url']
 
     parties = None
     try:
@@ -230,6 +221,18 @@ def cast_vote(voter_url, choices=None):
         choices = choices if choices is not None else len(candidates)
         vote, encoded, rand = generate_vote(p, g, q, y, choices)
 
+    return vote, encoded, rand
+
+def cast_vote(voter_url, choices=None):
+    conn, headers, poll_info = get_poll_info(voter_url)
+    csrf_token = poll_info['token']
+    headers['Cookie'] += "; csrftoken=%s" % csrf_token
+    headers['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8'
+    headers['Referer'] = voter_url
+
+    voter_path = conn.path
+    vote, encoded, rand = _make_vote(poll_info)
+    cast_path = poll_info['poll_data']['cast_url']
     do_cast_vote(conn, cast_path, csrf_token, headers, vote)
     return encoded, rand
 
