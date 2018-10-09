@@ -257,6 +257,7 @@ def election_mix(election_id):
     for poll in election.polls.all():
         if poll.feature_can_mix:
             poll_mix.delay(poll.pk)
+            return
 
 
 @poll_task(ignore_result=True)
@@ -268,6 +269,11 @@ def poll_mix(poll_id):
         msg = "Mixing finished"
         poll.election.notify_admins(msg=msg, subject=subject)
         election_validate_mixing.delay(poll.election.pk)
+    else:
+        for poll in poll.election.polls.filter():
+            if poll.feature_can_mix:
+                poll_mix.delay(poll.pk)
+                return
 
 
 @task(ignore_result=True)
