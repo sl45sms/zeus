@@ -1,10 +1,18 @@
 <div id="questions_div">
 
+
   <div class="election-quick-guide panel">
     {interpolate(gettext("ELECTION_INTRO_BODY"), [BOOTH.election.name])}
   </div>
 
+  <div class="column-12">
+  <button class="start-voting button secondary medium button-submit"
+          style="margin-right: 10px"
+    onclick="BOOTH.navigate_to_election();">{gettext("BACK_TO_ELECTION")}</button>
   <button class="start-voting button success medium button-submit"
+          style="float: right"
     onclick="BOOTH.show_question(0);">{gettext("START")}</button>
+  </div>
+
 </div>
 

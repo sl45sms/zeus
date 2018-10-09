@@ -314,6 +314,10 @@ BOOTH.previous = function(question_num) {
 
 BOOTH.modules = {}
 
+BOOTH.navigate_to_election = function() {
+  window.location = this.election_url.replace(".json", "");
+}
+
 BOOTH.show_question = function(question_num) {
   BOOTH.audit_password = '';
 
