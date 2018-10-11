@@ -96,6 +96,7 @@ def election_voters_report(elections):
             ('fathername', voter.voter_fathername),
             ('email', voter.voter_email),
             ('visited', bool(voter.last_visit)),
+            ('poll', bool(voter.poll.short_name)),
             ('votes_count', voter.cast_count)
         ])
         if len(elections) > 1:
