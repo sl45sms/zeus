@@ -71,3 +71,9 @@
     {% blocktrans %}You have successfully uploaded your partial decryption of the election tally.{% endblocktrans %}
   </h5>
 {% endif %}
+
+    <div class="alert-box secondary" style="margin-top: 30px">
+        {% blocktrans with url=settings.ZEUS_CLIENT_URL %}As an alternative to browser decryption you can use <a target="_blank" href="{{ url }}">zeus-client</a> tool to perform tally decription.{% endblocktrans %}
+        <br/><br/>
+        <em>SHA256: {{ settings.ZEUS_CLIENT_SHA256 }}</em>
+    </div>
