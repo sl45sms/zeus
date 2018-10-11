@@ -270,9 +270,9 @@ def poll_mix(poll_id):
         poll.election.notify_admins(msg=msg, subject=subject)
         election_validate_mixing.delay(poll.election.pk)
     else:
-        for poll in poll.election.polls.filter():
-            if poll.feature_can_mix:
-                poll_mix.delay(poll.pk)
+        for _poll in poll.election.polls.exclude(pk=poll.pk):
+            if _poll.feature_can_mix and not _poll.mix_error:
+                poll_mix.delay(_poll.pk)
                 return
 
 
@@ -296,9 +296,9 @@ def poll_validate_mixing(poll_id):
         poll.election.notify_admins(msg=msg, subject=subject)
         election_zeus_partial_decrypt.delay(poll.election.pk)
     else:
-        for poll in poll.election.polls.all():
-            if poll.feature_can_validate_mixing:
-                poll_validate_mixing.delay(poll.pk)
+        for _poll in poll.election.polls.exclude(pk=poll.pk):
+            if _poll.feature_can_validate_mixing and not _poll.validate_mixing_error:
+                poll_validate_mixing.delay(_poll.pk)
                 return
 
 
