@@ -6,6 +6,7 @@ import sys
 import os
 import time
 import ssl
+import copy
 
 from zeus.core import (c2048, get_random_selection,
                        gamma_encode, gamma_decode, gamma_encoding_max,
@@ -324,12 +325,14 @@ def get_login(url):
     conn = get_http_connection(url)
     parsed = urlparse(url)
 
-    _, _, election, _, _, trustee, password = parsed.path.split("/")
+    path_parts = parsed.path.split("/")
+    _, _, election, _, _, trustee, password = path_parts[-7:]
+    prefix = "/".join(path_parts[:-6])
     auth = b64encode("%s:%s:%s" % (election, trustee, password))
     headers = {
         'Authorization': 'Basic %s' % auth
     }
-    base_url = "/elections/%s/trustee" % (election,)
+    base_url = "%s/elections/%s/trustee" % (prefix, election)
     return conn, headers, base_url
 
 
@@ -394,6 +397,8 @@ def do_upload_factors(outfile, url):
 
         conn, headers, redirect = get_login(url)
         body = urlencode({'factors_and_proofs': out_data})
+        headers = copy.copy(headers)
+        headers['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8'
         conn.request('POST', path, body=body, headers=headers)
         response = conn.getresponse().read()
         print response

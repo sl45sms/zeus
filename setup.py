@@ -11,7 +11,7 @@ with open(path.join(here, 'README.client.rst'), encoding='utf-8') as f:
 setup(
     name='zeus-client',
 
-    version='0.1.2',
+    version='0.1.4',
 
     description='Zeus client',
 
