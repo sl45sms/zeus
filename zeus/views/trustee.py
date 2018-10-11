@@ -191,8 +191,6 @@ def json_data(request, election, trustee):
             'nr_voters': nr_voters,
             'nr_excluded': nr_excluded,
             'cast_votes': poll.cast_votes_count,
-            'link_id': poll.link_id,
-            'index': poll.index if poll.link_id else None,
             'frozen_at': date_to_string(poll.frozen_at),
             'created_at': date_to_string(poll.created_at),
             'modified_at': date_to_string(poll.modified_at),
