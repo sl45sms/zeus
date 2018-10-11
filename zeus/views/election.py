@@ -17,6 +17,7 @@ from zeus import reports
 from zeus import auth
 from zeus.views.poll import voters_email
 
+from django.utils.encoding import smart_unicode
 from django.db import transaction
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse, Http404
@@ -336,6 +337,22 @@ def report(request, election, format="json"):
 
     return HttpResponse(json.dumps(_reports, default=handler, indent=4),
                         content_type="application/json")
+
+
+@auth.election_admin_required
+@require_http_methods(["GET"])
+def voters_csv(request, election):
+    q_param = request.GET.get('q', None)
+    response = HttpResponse(content_type='text/csv')
+    filename = smart_unicode("voters-%s.csv" % election.short_name)
+    response['Content-Dispotition'] = \
+           'attachment; filename="%s.csv"' % filename
+
+    for poll in election.polls.filter():
+        headers = poll.get_module().get_voters_list_headers(request)
+        include_vote_field = poll.feature_mixing_finished or request.zeususer.is_manager or 'cast_votes__id' in headers
+        poll.voters_to_csv(q_param, response, include_vote_field, include_dates=True, include_poll_name=True)
+    return response
 
 
 @auth.election_admin_required
