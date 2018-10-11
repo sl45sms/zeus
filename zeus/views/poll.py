@@ -976,18 +976,23 @@ def audited_ballots(request, election, poll):
 @require_http_methods(["POST"])
 def upload_decryption(request, election, poll, trustee):
     factors_and_proofs = crypto_utils.from_json(
-        request.POST['factors_and_proofs'])
+        request.POST.get('factors_and_proofs', "{}"))
 
     # verify the decryption factors
-    LD = datatypes.LDObject
-    factors_data = factors_and_proofs['decryption_factors']
-    factor = lambda fd: LD.fromDict(fd, type_hint='core/BigInteger').wrapped_obj
-    factors = [[factor(f) for f in factors_data[0]]]
+    try:
+        LD = datatypes.LDObject
+        factors_data = factors_and_proofs['decryption_factors']
+        factor = lambda fd: LD.fromDict(fd, type_hint='core/BigInteger').wrapped_obj
+        factors = [[factor(f) for f in factors_data[0]]]
 
-    proofs_data = factors_and_proofs['decryption_proofs']
-    proof = lambda pd: LD.fromDict(pd, type_hint='legacy/EGZKProof').wrapped_obj
-    proofs = [[proof(p) for p in proofs_data[0]]]
-    poll.logger.info("Poll decryption uploaded")
+        proofs_data = factors_and_proofs['decryption_proofs']
+        proof = lambda pd: LD.fromDict(pd, type_hint='legacy/EGZKProof').wrapped_obj
+        proofs = [[proof(p) for p in proofs_data[0]]]
+        poll.logger.info("Poll decryption uploaded")
+    except KeyError:
+        data_sample = str(request.POST.items())[:50]
+        poll.logger.error("upload decryption failed (POST DATA: %s)" % data_sample)
+        return HttpResponseBadRequest(400)
     tasks.poll_add_trustee_factors.delay(poll.pk, trustee.pk, factors, proofs)
 
     return HttpResponse("SUCCESS")
