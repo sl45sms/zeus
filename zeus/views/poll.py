@@ -909,6 +909,7 @@ def cast_done(request, election, poll):
 
     return render_template(request, 'election_poll_cast_done', {
                                'cast_vote': vote,
+                                'hide_login_link': True,
                                'election_uuid': election.uuid,
                                'poll_uuid': poll.uuid
     })

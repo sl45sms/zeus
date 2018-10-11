@@ -148,7 +148,9 @@
 	  <u>{{ election.name }}</u>.
 	  <a href="{{settings.SECURE_URL_HOST}}{% url "logout" %}">{% trans "Logout" %}</a>
           {% else %}
+            {% if not hide_login_link %}
 	  <a href="{{settings.SECURE_URL_HOST}}{% url "login" %}">{% trans "Login" %}</a>
+            {% endif %}
           {% endif %}
           {% endif %}
           <br />
