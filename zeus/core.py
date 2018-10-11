@@ -4054,7 +4054,7 @@ class ZeusCoreElection(object):
             print "MODULUS", modulus
             print "GENERATOR", generator
             print "ORDER", order
-            print "CIPHERS", ciphers
+            #print "CIPHERS", ciphers
             print "FACTORS", factors
             print "PK", trustee_public
             m = "Invalid trustee factor proof!"
