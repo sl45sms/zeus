@@ -168,13 +168,11 @@ class PollMix(models.Model):
         self.mix_file = fname
         self.save()
 
-    def reset_mixing(self):
-        if self.status == 'finished' and self.mix:
+    def reset_mixing(self, force=True):
+        if self.status == 'finished' and self.mix_file and not force:
             raise Exception("Cannot reset finished mix")
         # TODO: also reset mix with higher that current mix_order
         self.mixing_started_at = None
-        self.mix = None
-        self.second_mix = None
         self.status = 'pending'
         self.mix_error = None
         self.save()
@@ -206,7 +204,7 @@ class PollMix(models.Model):
         last_mix = self.poll.zeus.get_last_mix()
         new_mix = self.poll.zeus.mix(last_mix)
 
-        self.store_mix(new_mix)
+        #self.store_mix(new_mix)
         self.store_mix_in_file(new_mix)
 
         self.status = 'finished'
@@ -1380,7 +1378,7 @@ class Poll(PollTasks, HeliosModel, PollFeatures):
                                     mixing_finished_at=datetime.datetime.now(),
                                     status=status,
                                     mix_error=error if error else None)
-            mix.store_mix(remote_mix)
+            #mix.store_mix(remote_mix)
             mix.store_mix_in_file(remote_mix)
     except Exception, e:
         logging.exception("Remote mix creation failed.")
