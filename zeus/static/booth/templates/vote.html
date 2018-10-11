@@ -50,6 +50,11 @@
     a.chosen-party {
       background-color: #5E9245 !important;
     }
+    .tabs dd:not(.active), .tabs dd:not(.active) a:focus, .tabs dd:not(.active) a {
+      background-color: #efefef;
+      color: #aeaeae !important;
+      font-weight: normal !important;
+    }
   </style>
   <div class="bg-wrapper">
   <div id="wrapper" class="row">
@@ -68,8 +73,8 @@
     <div class="columns twelve">
       <div id="progress_div" style="display:none">
         <dl class="tabs">
-          <dd id="progress_1" class="active"><a href="#" data-trans>{gettext("STEP_1_TITLE")}</a></dd>
-          <dd id="progress_2"><a href="#" data-trans>{gettext("STEP_2_TITLE")}</a></dd>
+          <dd id="progress_1" class="progress active"><a href="#" data-trans>{gettext("STEP_1_TITLE")}</a></dd>
+          <dd id="progress_2" class="progress"><a href="#" data-trans>{gettext("STEP_2_TITLE")}</a></dd>
         </dl>
       </div>
 
@@ -121,6 +126,6 @@
   </div>
 </div>
 </body>
-<script language="javascript" src="js/ballot_modules.js?d=20181008"></script>
+<script language="javascript" src="js/ballot_modules.js?d=20181010"></script>
 <script language="javascript" src="js/booth.js?d=20181009"></script>
 </html>
