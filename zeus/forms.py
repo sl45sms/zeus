@@ -1146,7 +1146,12 @@ class VoterLoginForm(forms.Form):
     def clean(self):
         cleaned_data = super(VoterLoginForm, self).clean()
 
-        login_id = self.cleaned_data.get('login_id')
+        login_id = self.cleaned_data.get('login_id', '').strip()
+
+        invalid_login_id_error = _("Invalid login code")
+        if not login_id:
+            raise forms.ValidationError(invalid_login_id_error)
+
         matches = filter(bool, self.validation.findall(login_id))
         if len(matches):
             login_id = matches[0]
@@ -1154,10 +1159,6 @@ class VoterLoginForm(forms.Form):
             matches = filter(bool, self.validation_digits.findall(login_id))
             if len(matches):
                 login_id = matches[0]
-
-        invalid_login_id_error = _("Invalid login code")
-        if not login_id:
-            raise forms.ValidationError(invalid_login_id_error)
 
         try:
             poll_id, secret = Voter.extract_login_code(login_id)
