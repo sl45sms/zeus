@@ -87,21 +87,13 @@ BM.ModuleBase = {
   },
 
   remove_choice: function(choice) {
-    choice = parseInt(choice);
-    var party_choices = this.party_choices;
-    var choices = this.get_answer();
-    if (party_choices.indexOf(choice) == -1 && choices.length === 1) {
-      var party_choice = party_choices.filter(function(c) {
-        return choice >= c
-      }).reverse()[0];
-      this.set_answer([party_choice]);
-    } else {
-      this.set_answer(_.without(choices, choice));
-    }
-    this.enable_answer(choice);
-    this.sort_answer();
+     choice = parseInt(choice);
+     var choices = this.get_answer();
+     this.set_answer(_.without(choices, choice));
+     this.enable_answer(choice);
+     this.sort_answer();
   },
-  
+
   check_disable_questions: function() {
     var self = this;
     _.each(this.data, function(q,i){
@@ -163,17 +155,7 @@ BM.ModuleBase = {
   },
 
   disable_answer: function(choice) {
-    var selected_party = this.selected_party();
-    var el = this.get_answer_el(choice).removeClass().addClass('secondary button small disabled');
-    var is_party = el.data("is-party");
-
-    // hide other parties candidates
-    try {
-      if (!this.expanded_parties() && !is_party && (selected_party === undefined || selected_party != el.data('question'))) {
-        el.hide();
-      }
-    } catch(err) {
-    }
+    this.get_answer_el(choice).removeClass().addClass('secondary button small disabled');
   },
 
   enable_answer: function(choice) {
@@ -258,6 +240,37 @@ BM.ModuleBase,
     return true;
   },
   
+  disable_answer: function(choice) {
+    var selected_party = this.selected_party();
+    var el = this.get_answer_el(choice).removeClass().addClass('secondary button small disabled');
+    var is_party = el.data("is-party");
+
+    // hide other parties candidates
+    try {
+      if (!this.expanded_parties() && !is_party && (selected_party === undefined || selected_party != el.data('question'))) {
+        el.hide();
+      }
+    } catch(err) {
+    }
+  },
+
+  remove_choice: function(choice) {
+    choice = parseInt(choice);
+    var party_choices = this.party_choices;
+    var choices = this.get_answer();
+    if (party_choices.indexOf(choice) == -1 && choices.length === 1) {
+      var party_choice = party_choices.filter(function(c) {
+        return choice >= c
+      }).reverse()[0];
+      this.set_answer([party_choice]);
+    } else {
+      this.set_answer(_.without(choices, choice));
+    }
+    this.enable_answer(choice);
+    this.sort_answer();
+  },
+  
+
   selected_party: function(raise) {
     var parties = this.get_questions_answers();
     var party = undefined;
@@ -713,10 +726,6 @@ BM.ModuleBase, {
   
   select_answer: function(choice) {
     this.get_answer_el(choice).removeClass().addClass('button small disabled');
-  },
-
-  disable_answer: function(choice) {
-    this.get_answer_el(choice).removeClass().addClass('secondary button small disabled');
   },
 
   update_layout: function() {
