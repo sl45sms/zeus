@@ -32,7 +32,8 @@ from zeus import tasks
 from django.utils.encoding import smart_unicode
 from django.db import transaction
 from django.shortcuts import get_object_or_404
-from django.http import Http404, HttpResponseRedirect, HttpResponse
+from django.http import Http404, HttpResponseRedirect, HttpResponse, \
+    HttpResponseBadRequest
 from django.core.exceptions import PermissionDenied
 from django.forms.models import modelformset_factory
 from django.template.loader import render_to_string
@@ -804,7 +805,13 @@ def post_audited_ballot(request, election, poll):
     raw_vote = request.POST['audited_ballot']
     encrypted_vote = crypto_utils.from_json(raw_vote)
     audit_request = crypto_utils.from_json(request.session['audit_request'])
-    audit_password = request.session['audit_password']
+    audit_password = request.session.get('audit_password', None)
+
+    if audit_password:
+        audit_password = audit_password.decode('utf8')
+        if len(audit_password) > 100:
+            return HttpResponseBadRequest(400)
+
 
     if not audit_password:
         raise Exception("Auditing with no password")
