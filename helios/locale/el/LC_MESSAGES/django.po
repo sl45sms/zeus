@@ -669,7 +669,7 @@ msgid ""
 "As an alternative to browser decryption you can use <a target=\"_blank\" "
 "href=\"%(url)s\">zeus-client</a> tool to perform tally decription."
 msgstr "Για την μερική αποκρυπτογράφηση των ψηφοδελτίων χωρίς την χρήση του προγράμματος "
-"φυλλομετριτή ιστού (web browser) μπορείτε να χρησιμοποιήσετε "
+"φυλλομετρητή ιστού (web browser) μπορείτε να χρησιμοποιήσετε "
 "το εργαλείο <a target=\"_blank\" href=\"%(url)s\">zeus-client</a>."
 
 msgid "Create Institution"
