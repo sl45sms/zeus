@@ -53,3 +53,20 @@ participant takes part to the election mix as follows::
   parameters. Using a low number produces fast results but could diminish mix
   security. It is advised to use an integer equal or greater than `128`.
 - **parallel** should be set to the number of CPU cores of your system.
+
+
+Decryption
+----------
+
+1. Download election ciphertexts::
+
+   $ zeus-client download ciphers "<trustee-login-url>" ballots-encrypted
+
+2. Compute partial decryptions
+
+   $ zeus-client decrypt ballots-encrypted ballots-partially-decrypted "<path-to-trustee-secret-key>"
+
+3. Submit partial decryptions
+
+   $ zeus-client upload factors ballots-partially-decrypted "<trustee-login-url>"
+

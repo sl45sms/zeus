@@ -313,7 +313,7 @@ TEST_RUNNER = "django.test.runner.DiscoverRunner"
 SMS_BACKEND = "mybsms"
 
 ZEUS_CLIENT_URL = "https://pypi.org/project/zeus-client/#files"
-ZEUS_CLIENT_SHA256 = "83c74e4d1027cfee63c96b361e9cf70a6c8f17889c245306a8923005832abf29"
+ZEUS_CLIENT_SHA256 = "f2587006fe0a2def3d82763d9e1af06d9e9ce0df442fccb4e975631a1552e0f1"
 
 # useful trick for custom settings
 try:
