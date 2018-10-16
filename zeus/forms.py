@@ -1170,6 +1170,8 @@ class VoterLoginForm(forms.Form):
             poll = Poll.objects.get(pk=poll_id)
         except Poll.DoesNotExist:
             raise forms.ValidationError(invalid_login_id_error)
+        except ValueError:
+            raise forms.ValidationError(invalid_login_id_error)
 
         try:
             self._voter = poll.voters.get(voter_password=secret)
