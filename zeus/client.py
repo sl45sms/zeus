@@ -55,12 +55,12 @@ def generate_voter_file(nr, domain='zeus.minedu.gov.gr'):
     return '\n'.join((u'%d, voter-%d@%s, Ψηφοφόρος, %d' % (i, i, domain, i))
                      for i in xrange(nr))
 
-def generate_vote(p, g, q, y, choices):
+def generate_vote(p, g, q, y, choices, nr_candidates=None):
     if isinstance(choices, int):
         nr_candidates = choices
         selection = get_random_selection(nr_candidates, full=0)
     else:
-        nr_candidates = (max(choices) if choices else 0) + 1
+        nr_candidates = nr_candidates or (max(choices) if choices else 0) + 1
         selection = to_relative_answers(choices, nr_candidates)
     encoded = gamma_encode(selection, nr_candidates)
     ct = encrypt(encoded, p, g, q, y)
@@ -211,13 +211,13 @@ def _make_vote(poll_data):
             nr_choices = randint(min_choices, max_choices)
             choices = party_candidates[:nr_choices]
             choices.sort()
-        vote, encoded, rand = generate_vote(p, g, q, y, choices)
-        #for c in choices:
-        #    print "Voting for", c, party[c]
-        #ballot = gamma_decode_to_party_ballot(encoded, candidates,
-        #                                      parties, nr_groups)
-        #print "valid", ballot['valid'], ballot['invalid_reason']
-        #print " "
+        vote, encoded, rand = generate_vote(p, g, q, y, choices, len(candidates))
+        for c in choices:
+           print "Voting for", c, party[c]
+        ballot = gamma_decode_to_party_ballot(encoded, candidates,
+                                             parties, nr_groups)
+        if not ballot['valid']:
+            print "valid", ballot['valid'], ballot['invalid_reason']
     else:
         choices = choices if choices is not None else len(candidates)
         vote, encoded, rand = generate_vote(p, g, q, y, choices)
