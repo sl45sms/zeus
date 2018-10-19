@@ -2097,6 +2097,8 @@ def gamma_count_parties(encoded_list, candidates, separator=PARTY_SEPARATOR):
     candidate_counters = {}
     party_counters = {}
     ballots = []
+    invalid_ballots = []
+    invalid_append = invalid_ballots.append
     append = ballots.append
     parties, nr_groups = parties_from_candidates(candidates,
                                                  separator=separator)
@@ -2112,6 +2114,7 @@ def gamma_count_parties(encoded_list, candidates, separator=PARTY_SEPARATOR):
                                               nr_groups, separator=separator)
         if not ballot['valid']:
             invalid_count += 1
+            invalid_append(ballot)
             continue
 
         append(ballot)
@@ -2159,6 +2162,7 @@ def gamma_count_parties(encoded_list, candidates, separator=PARTY_SEPARATOR):
                'candidate_counts': candidate_counts,
                'ballot_count': len(ballots) + invalid_count,
                'blank_count': blank_count,
+               'invalid_ballots': invalid_ballots,
                'invalid_count': invalid_count}
     return results
 
