@@ -232,7 +232,7 @@ def cast_vote(voter_url, choices=None):
     headers['Referer'] = voter_url
 
     voter_path = conn.path
-    vote, encoded, rand = _make_vote(poll_info)
+    vote, encoded, rand = _make_vote(poll_info['poll_data'])
     cast_path = poll_info['poll_data']['cast_url']
     do_cast_vote(conn, cast_path, csrf_token, headers, vote)
     return encoded, rand
