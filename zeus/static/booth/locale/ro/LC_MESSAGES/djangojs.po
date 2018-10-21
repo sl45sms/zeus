@@ -20,193 +20,245 @@ msgstr ""
 "2:1));\n"
 
 msgid "STEP_1_TITLE"
-msgstr ""
+msgstr "Completarea buletinului de vot"
 
 msgid "STEP_2_TITLE"
-msgstr ""
+msgstr "Introducerea buletinului în urnă"
 
 msgid "INITIALIZING_BOOTH"
-msgstr ""
+msgstr "Inițializăm cabina de vot..."
 
 msgid "INIT_BOOTH_ESTIMATED_TIME"
-msgstr ""
+msgstr "Durează aproximativ 10 secunde"
 
 msgid "PLEASE_WAIT"
-msgstr ""
+msgstr "Te rugăm să aștepți..."
 
 msgid "BALLOT_ENCRYPTION_IN_PROGRESS"
-msgstr ""
+msgstr "Buletinul de vot este în curs de criptare. Te rugăm să aștepți..."
 
 msgid "BALLOT_ENCRYPTION_ESTIMATED_TIME"
-msgstr ""
+msgstr "Criptarea buletinului de vot poate dura până la 2 minute."
 
 msgid "HELP"
-msgstr ""
+msgstr "Asistență"
 
 msgid "LOGOUT"
-msgstr ""
+msgstr "Ieșire"
 
 msgid "BLANK_BALLOT"
-msgstr ""
+msgstr "Vot nul"
 
 msgid "BALLOT_CONTINUE_BUTTON"
-msgstr ""
+msgstr "Continuă"
 
 msgid ""
 "If you leave this page with an in-progress ballot, your ballot will be lost."
-msgstr ""
+msgstr "Dacă părăsești această pagină, opțiunile făcute de pe buletinul de vot se vor pierde."
 
 msgid ""
 "Are you sure you want to exit the booth and lose all information about your "
 "current ballot?"
-msgstr ""
+msgstr "Ești sigur că vrei să ieși din cabină și să renunți la toate alegerile făcute pe buletin?"
 
 msgid "BROWSER_NOT_SUPPORTED_ALERT"
 msgstr ""
+"Browser-ul tău de web nu este compatibil cu Zeus. Te rugăm să folosești o versiune recentă de "
+"Mozilla Firefox sau Google Chrome.\n"
+"\n"
+"Contactează-ne dacă ai nevoie de mai multe informații"
 
 msgid "EMPTY_PARTY_CHOICE"
-msgstr ""
+msgstr "Niciun candidat nu a fost ales"
 
 msgid "HELP_EMAIL_SUBJECT"
-msgstr ""
+msgstr "Asistență privind cabina de vot Zeus"
 
 msgid "HELP_EMAIL_BODY"
-msgstr ""
+msgstr "Am următoarea problemă:"
 
 msgid "ELECTION_INIT_ERROR"
-msgstr ""
+msgstr "Eroare în inițializarea scrutinului"
 
 msgid "ENCRYPTION_PROCESS_FAILED"
-msgstr ""
+msgstr "Criptarea a eșuat."
 
 msgid "AUDIT_BALLOT_CAST_COMPLETE"
 msgstr ""
+"Buletinul de vot de test (de auditare) a fost introdus în urnă cu succes. Numărul buletinului este: %s"
 
 msgid "ELECTION_TERMS_ACCEPT_REQUIRED"
-msgstr ""
+msgstr "Te rugăm să accepți termenii și condițiile pentru votare."
 
 msgid "BALLOT_CAST_FAILED"
-msgstr ""
+msgstr "Trimiterea buletinului de vot a eșuat."
 
 msgid "CAST_VOTE_ID"
-msgstr ""
+msgstr "Identificatorul votului"
 
 msgid "WINDOW_CLOSE_CONFIRM"
-msgstr ""
+msgstr "Ești sigur că vrei să ieși din cabina de vot?"
 
 msgid "AUDIT_BALLOT_SUBMIT"
-msgstr ""
+msgstr "Trimite buletin de vot pentru auditare"
 
 msgid "AUDIT_BALLOT_SET"
 msgstr ""
+"Ai completat un buletin de vot de test (de auditare). Acest buletin nu va fi numărat, iar "
+"conținutul său va fi înregistrat și publicat într-un registru public disponibil în "
+"tabloul de bord al scrutinului."
+
 
 msgid "AUDIT_BALLOT_BACK_PROMPT"
-msgstr ""
+msgstr "Apasă Înapoi pentru a te întoarce la cabina de vot."
 
 msgid "AUDIT_BALLOT_CONFIRM_BUTTON"
-msgstr ""
+msgstr "Introdu în urnă"
 
 msgid "AUDIT_BALLOT_BACK_BUTTON"
-msgstr ""
+msgstr "Înapoi"
 
 msgid "AUDIT_BALLOT_BACK_TO_ELECTION_BUTTON"
-msgstr ""
+msgstr "Înapoi la tabloul de bord al scrutinului"
 
 msgid "BALLOT_SUBMISSION_IN_PROGRESS"
-msgstr ""
+msgstr "Submitting ballot..."
 
 msgid "BALLOT_SUBMISSION_PLEASE_WAIT"
-msgstr ""
+msgstr "Your ballot is being submitted. Please wait..."
 
 msgid "ELECTION_INTRO_BODY"
 msgstr ""
+"    <p>Bine ai venit la cabina de vot electronic Zeus!</p>\n"
+"    <p>\n"
+"    Ai ajuns aici apasând pe link-ul din invitația care ți-a fost trimisă "
+"prin e-mail sau SMS să votezi pentru\n"
+"    <b>«%s»</b>.</p>\n"
+"\n"
+"    <p>\n"
+"    Pentru a vota urmează instrucțiunile.\n"
+"    Faza votului în care te afli este afișata în partea de sus a paginii\n"
+"    împreună cu alte informații relevante.\n"
+"    </p>\n"
+"\n"
+"    <ol>\n"
+"      <li class=\"step\">\n"
+"      <span class=\"step-title\">\n"
+"        Completarea buletinului de vot.\n"
+"      </span>\n"
+"      <span class=\"step-desc\">\n"
+"        În această etapă, marchezi pe buletinul de vot opțiunile tale.\n"
+"      </span>\n"
+"      </li>\n"
+"      <li class=\"step\">\n"
+"      <span class=\"step-title\">\n"
+"        Criptarea buletinului și introducerea în urnă\n"
+"      </span>\n"
+"      <span class=\"step-desc\">\n"
+"        Opțiunile pe care le ai marcat pe buletinul de vot vor fi criptate\n"
+"        pe calculatorul tău de web browser-ul tău și apoi vor fi\n"
+"        trimise prin rețea către Zeus.\n"
+"        Un certificat de introducere în urnă îți va fi trimis prin email sau SMS.\n"
+"      </span>\n"
+"      </li>\n"
+"    </ol>\n"
+"    <p>\n"
+"     Poți refolosi link-ul din invitația trimisă pentru a vota din nou.\n"
+"     De fiecare dată, noul buletin de vot în înlocuiește pe cel vechi.\n"
+"    </p>"
 
 msgid "BACK_TO_ELECTION"
-msgstr ""
+msgstr "Înapoi la tabloul de bord al scrutinului"
 
 msgid "START"
-msgstr ""
+msgstr "Start"
 
 msgid "ELECTION_KEY_NOT_INITIALIZED"
-msgstr ""
+msgstr "Scrutinul nu a fost încă inițializat"
 
 msgid "POLL_IDENTIFIER"
-msgstr ""
+msgstr "Identificatorul scrutinului"
 
 msgid "ELECTION_INFO_BUTTON"
-msgstr ""
+msgstr "Informații"
 
 msgid "CONTACT_DETAILS"
-msgstr ""
+msgstr "Contact"
 
 msgid "EMAIL"
-msgstr ""
+msgstr "Email"
 
 msgid "PHONE"
-msgstr ""
+msgstr "Telefon"
 
 msgid "AUDIT_VOTE_CODE_PROMPT"
-msgstr ""
+msgstr "Trimite vot de test (de auditare)"
 
 msgid "AUDIT_VOTE_INSTRUCTIONS"
 msgstr ""
+"Codurile valide pentru auditare ți-au fost trimise împreună cu invitația "
+"pentru vot."
 
 msgid "AUDIT_VOTE_CODE_LABEL"
-msgstr ""
+msgstr "Introdu codul:"
 
 msgid "UP_TO"
-msgstr ""
+msgstr "până la"
 
 msgid "CHOICE"
-msgstr ""
+msgstr "opțiune"
 
 msgid "CHOICES"
-msgstr ""
+msgstr "opțiuni"
 
 msgid "choice"
-msgstr ""
+msgstr "opțiune"
 
 msgid "choices"
-msgstr ""
+msgstr "opțiuni"
 
 msgid "to"
-msgstr ""
+msgstr "to"
 
 msgid "Blank vote"
-msgstr ""
+msgstr "Vot nul"
 
 msgid "AUDIT_VOTE_SUBMISSION_BUTTON"
-msgstr ""
+msgstr "Trimite buletin de vot de auditare"
 
 msgid "STV_BALLOT_HELP_TEXT"
 msgstr ""
+"Apasă pe numele candidaților din stângă pentru a completa buletinul. Dacă vrei "
+"să înlături o opțiune apasă pe numele candidatului pe coloana din dreapta."
 
 msgid "STV_BALLOT_CANDIDATES_HEADER"
-msgstr ""
+msgstr "Candidații"
 
 msgid "STV_BALLOT_CANDIDATES_SELECT_HEADER"
-msgstr ""
+msgstr "Candidații aleși"
 
 msgid "STV_BALLOT_CHOICE"
-msgstr ""
+msgstr "Opțiunile de pe buletinul de vot"
 
 msgid "BALLOT_ENCRYPTED_SUCCESS"
 msgstr ""
+"Buletinul de vot a fost criptat cu succes. Confirmă opțiunile tale așa cum sunt "
+"prezentate mai jos."
 
 msgid "CHOICE_RANK"
-msgstr ""
+msgstr "Opțiune"
 
 msgid "BACK_TO_BALLOT_CHOICES"
-msgstr ""
+msgstr "Înapoi la cabina de vot"
 
 msgid "SUBMIT_BALLOT_PROMPT"
-msgstr ""
+msgstr " "
 
 msgid "CONFIRM"
-msgstr ""
+msgstr "Confirmă"
 
 msgid "ELECTION_TERMS_LABEL"
-msgstr ""
+msgstr "Confirm că sunt singur în fața ecranului și că nimeni altcineva nu a văzut alegerile pe care le-am făcut"
 
 msgid "SUBMIT_BALLOT"
-msgstr ""
+msgstr "Introdu buletinul în urnă"
