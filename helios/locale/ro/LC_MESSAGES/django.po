@@ -1458,8 +1458,8 @@ msgid ""
 "We recommend the following browsers:"
 msgstr ""
 "Votarea are loc în web browser-ul de pe calculatorul tău\n"
-"unde alegerile făcute sunt înregistrate și criptate înainte de a fi trimise.\"
-"Îți recomandăm următoarele browsere:'
+"unde alegerile făcute sunt înregistrate și criptate înainte de a fi trimise.\n"
+"Îți recomandăm următoarele browsere:"
 
 msgid "version"
 msgstr "versiunea"
