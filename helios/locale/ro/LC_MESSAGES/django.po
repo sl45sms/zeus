@@ -76,13 +76,13 @@ msgid ""
 msgstr ""
 
 msgid "Voting starts at"
-msgstr ""
+msgstr "Votarea începe la"
 
 msgid "Voting ends at"
-msgstr ""
+msgstr "Votarea se termină la"
 
 msgid "Voting extended until"
-msgstr ""
+msgstr "Votarea a fost prelungită până la"
 
 msgid "Cast consent test"
 msgstr ""
@@ -461,7 +461,7 @@ msgid "Voter (desc)"
 msgstr ""
 
 msgid "Voters count"
-msgstr ""
+msgstr "Numărul de voturi exprimate"
 
 msgid "Polls count"
 msgstr ""
@@ -515,13 +515,13 @@ msgid "Voting date passed."
 msgstr ""
 
 msgid "Voting closed. Please wait for results"
-msgstr ""
+msgstr "Votarea s-a încheiat. Se așteaptă rezultatele."
 
 msgid "Election canceled"
-msgstr ""
+msgstr "Scrutinul a fost anulat"
 
 msgid "Election completed."
-msgstr ""
+msgstr "Votarea s-a încheiat."
 
 msgid "Cast vote for all polls"
 msgstr ""
@@ -543,7 +543,7 @@ msgid "Election cancel message"
 msgstr ""
 
 msgid "Cancel reason"
-msgstr ""
+msgstr "Motivul anulării"
 
 msgid "Confirm election cancel"
 msgstr ""
@@ -804,10 +804,10 @@ msgid "No audited ballots posted yet"
 msgstr ""
 
 msgid "Your vote has been cast"
-msgstr ""
+msgstr "Votul tău a fost înregistrat"
 
 msgid "Your vote has been successfully cast. Thank you for participating."
-msgstr ""
+msgstr "Votul tău a fost înregistrat cu succces. Mulțumim pentru participare!"
 
 #, python-format
 msgid ""
@@ -815,6 +815,9 @@ msgid ""
 "A %(anchor_start)ssubmission receipt%(anchor_end)s for your vote has been "
 "sent to your email address or mobile phone.\n"
 msgstr ""
+"\n"
+"Un %(anchor_start)scertificat de introducere în urnă%(anchor_end)s pentru votul tău ți-a fost "
+"trimis pe adresa de email sau pe telefonul mobil.\n"
 
 msgid "Eligibles count"
 msgstr ""
@@ -1273,13 +1276,13 @@ msgid ""
 msgstr ""
 
 msgid "Support"
-msgstr ""
+msgstr "Asistență"
 
 msgid "Election support email"
-msgstr ""
+msgstr "Prin email"
 
 msgid "Election support phone"
-msgstr ""
+msgstr "Prin telefon"
 
 msgid "System message"
 msgstr ""
@@ -1562,16 +1565,16 @@ msgid "reports"
 msgstr ""
 
 msgid "logout"
-msgstr ""
+msgstr "ieși"
 
 msgid "change password"
 msgstr ""
 
 msgid "You are logged in as voter"
-msgstr ""
+msgstr "Ești intrat pe site ca votantul"
 
 msgid "proceed to election site"
-msgstr ""
+msgstr "mergi la site-ul scrutinului"
 
 msgid "You are logged in as trustee"
 msgstr ""
