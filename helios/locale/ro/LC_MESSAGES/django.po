@@ -1304,9 +1304,20 @@ msgid ""
 "\n"
 "you can find your encrypted vote attached in this mail."
 msgstr ""
+"Votul tău a fost înregistrat cu succes la scrutinul\n"
+"\n"
+"%(election_name)s\n"
+"%(poll_name)s\n"
+"\n"
+"Ai votat ca\n"
+"\n"
+"%(voter_name)s %(voter_surname)s\n"
+"cu numărul de alegător ('registration ID'): %(voter_login_id)s\n"
+"\n"
+"Votul tău în format criptat este atașat acestui email."
 
 msgid "Thank you for voting"
-msgstr ""
+msgstr "Mulțumim pentru că ai votat!"
 
 msgid ""
 "Greetings,\n"
@@ -1334,13 +1345,13 @@ msgid "Demo account for"
 msgstr ""
 
 msgid "Legitimate recipient:"
-msgstr ""
+msgstr "Destinatarul legal al acestui mesaj:"
 
 msgid "Dear voter,"
-msgstr ""
+msgstr "Dragă alegătorule,"
 
 msgid "The ending date of the election has changed. New ending date is:"
-msgstr ""
+msgstr "Data limită a scrutinului s-a modificat. Noua data limită este:"
 
 msgid "Zeus Elections"
 msgstr ""
@@ -1395,19 +1406,19 @@ msgid "Voting link"
 msgstr ""
 
 msgid "You are invited to vote in the poll:"
-msgstr ""
+msgstr "Ești invitat să votezi în scrutinul:"
 
 msgid "starting"
-msgstr ""
+msgstr "începând de la "
 
 msgid "and ending"
-msgstr ""
+msgstr "și până la "
 
 msgid "Your registration ID is:"
-msgstr ""
+msgstr "Numărul tău de alegător ('registration ID') este:"
 
 msgid "To submit your vote, follow the link below"
-msgstr ""
+msgstr "Pentru a vota, apasă pe link-ul de mai jos"
 
 msgid ""
 "Using the same link, you can also participate in the deliberative \n"
@@ -1421,37 +1432,40 @@ msgid "and ends at"
 msgstr ""
 
 msgid "Information:"
-msgstr ""
+msgstr "Informații"
 
 msgid "You can vote more than once. Only your last vote will be counted."
-msgstr ""
+msgstr "Poți vota de oricâte ori. Numai ultimul tău vot va fi numărat și va conta."
 
 msgid "For information about the voting you can contact the trustees by phone,"
-msgstr ""
+msgstr "Pentru informații despre votare poți contacta administratorul prin telefon"
 
 msgid "or by email,"
-msgstr ""
+msgstr "sau prin email"
 
 msgid "If you want to initiate an audit vote, to certify system security"
-msgstr ""
+msgstr "Dacă dorești să faci un vot de auditare, pentru a certifica securitatea sistemului"
 
 msgid "the valid audit codes are"
-msgstr ""
+msgstr "codurile pentru auditare sunt"
 
 msgid "Otherwise ignore those codes above."
-msgstr ""
+msgstr "Altfel, aceste coduri de mai sus pot fi ignorate."
 
 msgid ""
 "The voting takes place in the web browser in your computer,\n"
 "where your choices are recorded and encrypted before being submitted.\n"
 "We recommend the following browsers:"
 msgstr ""
+"Votarea are loc în web browser-ul de pe calculatorul tău\n"
+"unde alegerile făcute sunt înregistrate și criptate înainte de a fi trimise.\"
+"Îți recomandăm următoarele browsere:'
 
 msgid "version"
-msgstr ""
+msgstr "versiunea"
 
 msgid "or newer"
-msgstr ""
+msgstr "sau mai nouă"
 
 msgid ""
 "Important:\n"
@@ -1459,14 +1473,20 @@ msgid ""
 "The present message is strictly personal and confidential.\n"
 "Do not forward or show it to others. Do not reply to this."
 msgstr ""
+"Important:\n"
+"\n"
+"Acest mesaj e-mail este strict personal și confidențial.\n"
+"Nu aratăți acest mesaj altora și nu îl dați mai departe. Nu răspundeți acestui mesaj."
 
 msgid "Instead, you can write to"
-msgstr ""
+msgstr "Dacă aveți întrebări, scrieți un mesaj separat către"
 
 msgid ""
 "If you are not the legitimate recipient, please delete this message\n"
 "and contact helpdesk@zeus.grnet.gr"
 msgstr ""
+"Dacă ați primit acest mesaj din greșeală, vă rugăm să ștergeți acest mesaj\n"
+"și să contactați helpdesk@zeus.grnet.gr"
 
 msgid "Audit codes only apply for poll:"
 msgstr ""
@@ -1571,7 +1591,7 @@ msgid "change password"
 msgstr ""
 
 msgid "You are logged in as voter"
-msgstr "Ești intrat pe site ca votantul"
+msgstr "Ești intrat pe site ca alegătorul"
 
 msgid "proceed to election site"
 msgstr "mergi la site-ul scrutinului"
@@ -1589,7 +1609,9 @@ msgid ""
 "\n"
 "Please, provide your voter credentials sent to you via Email or SMS\n"
 msgstr ""
-
+"\n"
+"Te rugăm să introduci informațiile de acces la vot primite prin e-mail sau SMS\n"
+ 
 msgid "Redirecting..."
 msgstr ""
 
