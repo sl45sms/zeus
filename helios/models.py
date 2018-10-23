@@ -389,7 +389,8 @@ class Election(ElectionTasks, HeliosModel, ElectionFeatures):
     @property
     def polls_by_link(self):
         linked = self.polls.exclude(linked_ref=None).distinct("linked_ref")
-        unlinked = self.polls.filter(linked_ref=None)
+        uuids = linked.values_list('linked_ref', flat=True)
+        unlinked = self.polls.filter(linked_ref=None).exclude(uuid__in=uuids)
         return itertools.chain(linked, unlinked)
 
     @property
@@ -929,6 +930,12 @@ class Poll(PollTasks, HeliosModel, PollFeatures):
   @property
   def is_linked(self):
       return self.linked_ref or self.has_linked_polls
+
+  def get_linked_ref(self):
+      if self.is_linked_root:
+          return self.uuid
+      else:
+          return self.linked_ref
 
   def next_linked_poll(self, voter_id=None, exclude_cast_done=True, cyclic=False):
       polls = self.other_linked_polls
