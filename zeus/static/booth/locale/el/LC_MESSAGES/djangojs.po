@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-08 18:53+0300\n"
+"POT-Creation-Date: 2018-10-22 15:08+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -167,6 +167,9 @@ msgstr ""
 "     Κάθε φορά, η νέα ψήφος αντικαθιστά την προηγούμενη.\n"
 "    </p>"
 
+msgid "BACK_TO_ELECTION"
+msgstr "Επιστροφή στην σελίδα της ψηφοφορίας"
+
 msgid "START"
 msgstr "Εκκίνηση"
 
@@ -265,6 +268,3 @@ msgstr ""
 
 msgid "SUBMIT_BALLOT"
 msgstr "Υποβολή ψήφου"
-
-msgid "BACK_TO_ELECTION"
-msgstr "Επιστροφή στην σελίδα της ψηφοφορίας"

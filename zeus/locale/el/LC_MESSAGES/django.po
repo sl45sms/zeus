@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-24 14:49+0300\n"
+"POT-Creation-Date: 2018-10-22 15:08+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,6 +48,9 @@ msgstr "Ψηφοφορία με συνδυασμούς"
 
 msgid "Manage ballot"
 msgstr "Διαχείριση ψηφοδελτίου"
+
+msgid "Candidates"
+msgstr "Υποψήφιοι"
 
 msgid "Candidate"
 msgstr "Υποψήφιος"
@@ -396,9 +399,6 @@ msgstr "π.χ. 25/01/2015 19:00"
 
 msgid "Institution name"
 msgstr "Ίδρυμα"
-
-msgid "Candidates"
-msgstr "Υποψήφιοι"
 
 msgid "Maximum elected per department"
 msgstr "Περιορισμός εκλεγόμενων ανά Σχολή ή Ανεξάρτητο Τμήμα"

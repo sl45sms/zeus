@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-08 18:53+0300\n"
+"POT-Creation-Date: 2018-10-22 15:08+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -165,6 +165,9 @@ msgstr ""
 "     Each time, your new vote will replace the previous one.\n"
 "    </p>"
 
+msgid "BACK_TO_ELECTION"
+msgstr "Back to election view"
+
 msgid "START"
 msgstr "Start"
 
@@ -257,6 +260,3 @@ msgstr "I confirm that I am alone and nobody else has witnessed my selections."
 
 msgid "SUBMIT_BALLOT"
 msgstr "Submit ballot"
-
-msgid "BACK_TO_ELECTION"
-msgstr "Back to election view"
