@@ -39,6 +39,7 @@ TIME_ZONE = 'Europe/Athens'
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'el-gr'
 LANGUAGES = (('el', 'Greek'),)
+I18N_TEMPLATES_FALLBACK_LANGUAGE = 'en'
 
 SITE_ID = 1
 

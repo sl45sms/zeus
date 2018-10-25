@@ -8,6 +8,7 @@ from django.template import Context, Template, loader, TemplateSyntaxError, \
     TemplateDoesNotExist
 from django.http import HttpResponse, Http404
 from django.shortcuts import render
+from django.utils import translation
 
 import utils
 
@@ -68,18 +69,22 @@ def prepare_vars(request, vars):
 def render_template(request, template_name, vars = {}, include_user=True):
   vars_with_user = prepare_vars(request, vars)
 
-  language = getattr(request, 'LANGUAGE_CODE', settings.LANGUAGE_CODE)
+  language = translation.get_language().split('-')[0].lower()
+  fallback_language = getattr(settings, 'I18N_TEMPLATES_FALLBACK_LANGUAGE', 'en')
   default_language = getattr(settings, 'LANGUAGE_CODE', 'en').split('-')[0].lower()
+
   if not include_user:
     del vars_with_user['user']
 
   dyn_tpl = '%s.html' % template_name
   dyn_tpl_i18n = 'i18n/%s/%s.html' % (language, template_name)
+  dyn_tpl_fallback_i18n = 'i18n/%s/%s.html' % (fallback_language, template_name)
   dyn_tpl_default_i18n = 'i18n/%s/%s.html' % (default_language, template_name)
   i18n_tpl = 'helios/templates/i18n/%s/%s.html' % (language, template_name)
   template_name = 'helios/templates/%s.html' % template_name
 
-  tpls = [dyn_tpl_i18n, dyn_tpl_default_i18n, dyn_tpl, i18n_tpl, template_name]
+  tpls = [dyn_tpl_i18n, dyn_tpl_fallback_i18n, dyn_tpl_default_i18n, dyn_tpl,
+          i18n_tpl, template_name]
   tpls.reverse()
   tpl = None
 
