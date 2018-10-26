@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+_ = lambda x: x
 
 # go through environment variables and override them
 def get_from_env(var, default):
@@ -315,6 +316,26 @@ SMS_BACKEND = "mybsms"
 
 ZEUS_CLIENT_URL = "https://pypi.org/project/zeus-client/#files"
 ZEUS_CLIENT_SHA256 = "f2587006fe0a2def3d82763d9e1af06d9e9ce0df442fccb4e975631a1552e0f1"
+
+
+ZEUS_USER_GUIDES = (
+    # (
+        # 'admin',
+        # _('Admin guide for'),
+        # _('Simple election with one or more questions'),
+        # 'zeus_admin_manual_one_or_more_questions',
+        # ['el', 'en'],
+        # ['pdf', 'docx:doc']
+    # ),
+    # (
+        # 'admin',
+        # _('Admin guide for'),
+        # _('Party lists election'),
+        # 'zeus_admin_manual_multiple_parties',
+        # ['el', 'en'],
+        # ['pdf', 'docx:doc']
+    # ),
+)
 
 # useful trick for custom settings
 try:

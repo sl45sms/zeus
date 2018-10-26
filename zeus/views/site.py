@@ -3,7 +3,7 @@ import logging
 import uuid
 import json
 
-from collections import defaultdict
+from collections import defaultdict, namedtuple
 from time import time
 from random import randint
 
@@ -164,11 +164,62 @@ def faqs_voter(request):
     })
 
 
+class Guides(object):
+
+    def __init__(self):
+        self.guides = defaultdict(lambda: defaultdict(list))
+        self.findex = defaultdict(dict)
+
+    def add(self, cat, label, sublabel, fname, languages, extensions):
+        guides = self.guides[cat]
+        def make_ext(ext):
+            if not ':' in ext:
+                return {'ext': ext, 'label': ext}
+            parts = ext.split(":")
+            return {'ext': parts[0], 'label': _(parts[1])}
+
+        extensions = map(make_ext, extensions)
+        fallback = getattr(settings, 'I18N_TEMPLATES_FALLBACK_LANGUAGE', 'en')
+        for language in languages:
+            guides[language].append({
+                "label": _(label),
+                "sublabel": _(sublabel),
+                "fname": fname,
+                "languages": languages,
+                "extensions": extensions,
+                "lang": "_%s" % language if language != 'el' else ''
+            })
+
+    def get_guides(self, cat, lang=None):
+        lang = lang or get_language()
+        guides = self.guides[cat]
+        fallbacks = guides[getattr(settings,
+                                   'I18N_TEMPLATES_FALLBACK_LANGUAGE', 'en')]
+        if not lang in guides:
+            return fallbacks
+        return guides[lang]
+
+    @property
+    def admin(self):
+        return self.get_guides('admin')
+
+    @property
+    def voter(self):
+        return self.get_guides('voter')
+
+
+site_guides = Guides()
+
+for guide in getattr(settings, 'ZEUS_USER_GUIDES', []):
+    site_guides.add(*guide)
+
+
 def resources(request):
     user = request.zeususer
     return render_template(request, "zeus/resources", {
         'menu_active': 'resources',
-        'user': user
+        'user': user,
+        'guides': site_guides
     })
 
 

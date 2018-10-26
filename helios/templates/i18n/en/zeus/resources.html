@@ -1,0 +1,12 @@
+{% extends "zeus/resources.html" %}{% load i18n %}
+{% block tabs_menu %}
+
+{% if bad_login %}
+{% include "zeus/bad_login_warning.html" %}
+{% endif %}
+
+{% include "i18n/en/zeus/_menu_partial.html" %}
+{% endblock %}
+{% block extra_guides %}
+{% endblock %}
+
