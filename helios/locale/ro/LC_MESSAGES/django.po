@@ -20,55 +20,55 @@ msgstr ""
 "2:1));\n"
 
 msgid "Email subject"
-msgstr ""
+msgstr "Subiectul emailului"
 
 msgid "Email body"
-msgstr ""
+msgstr "Textul emailului"
 
 msgid "Send To"
-msgstr ""
+msgstr "Trimite către"
 
 msgid "all voters"
-msgstr ""
+msgstr "toți alegătorii"
 
 msgid "voters who have cast a ballot"
-msgstr ""
+msgstr "alegătorii care au votat deja"
 
 msgid "voters who have not yet cast a ballot"
-msgstr ""
+msgstr "alegătorii care nu au votat încă"
 
 msgid "Voter ID"
-msgstr ""
+msgstr "Identificatorul alegătorului"
 
 msgid "Unresolved"
-msgstr ""
+msgstr "Nerezolvat"
 
 msgid "Unofficial"
-msgstr ""
+msgstr "Neoficial"
 
 msgid "Official"
-msgstr ""
+msgstr "Oficial"
 
 msgid "Election type"
-msgstr ""
+msgstr "Tipul scrutinului"
 
 msgid "Election name"
-msgstr ""
+msgstr "Numele scrutinului"
 
 msgid "Support email"
-msgstr ""
+msgstr "Adresa de email pentru asistență"
 
 msgid "Support phone"
-msgstr ""
+msgstr "Nr. de telefon pentru asistență"
 
 msgid "Election description"
-msgstr ""
+msgstr "Descrierea scrutinului"
 
 msgid "Trial election"
-msgstr ""
+msgstr "Scrutin de test"
 
 msgid "Departments"
-msgstr ""
+msgstr "Departamente"
 
 msgid ""
 "University Schools. e.g.<br/><br/> School of Engineering <br />School of "
@@ -85,27 +85,27 @@ msgid "Voting extended until"
 msgstr "Votarea a fost prelungită până la"
 
 msgid "Cast consent test"
-msgstr ""
+msgstr "Acord privind votarea"
 
 msgid "Add at least one trustee"
-msgstr ""
+msgstr "Adăugă cel puțin un gardian"
 
 #, python-format
 msgid "Have trustee %s generate a keypair"
-msgstr ""
+msgstr "Gardianul %s trebuie să genereze o pereche de chei"
 
 #, python-format
 msgid "Have trustee %s verify his key"
-msgstr ""
+msgstr "Gardianul %s trebuie să și verifice cheia"
 
 msgid "Canceled"
-msgstr ""
+msgstr "Anulat"
 
 msgid "Completed"
-msgstr ""
+msgstr "Finalizat"
 
 msgid "Voting"
-msgstr ""
+msgstr "Votarea"
 
 msgid "Results computed"
 msgstr ""
@@ -114,55 +114,55 @@ msgid "Computing results"
 msgstr ""
 
 msgid "Decryption finished"
-msgstr ""
+msgstr "Decriptare finalizată"
 
 msgid "Decrypting"
-msgstr ""
+msgstr "În curs de decriptare"
 
 msgid "Partial decryptions finished"
-msgstr ""
+msgstr "Decriptările parțiale finalizate"
 
 msgid "Pending completion of partial decryptions"
-msgstr ""
+msgstr "Așteptăm finalizarea decriptărilor parțiale"
 
 msgid "Validating mixing"
-msgstr ""
+msgstr "În curs de validare a amestecului"
 
 msgid "Mixing finished"
-msgstr ""
+msgstr "Amestecul finalizat"
 
 msgid "Waiting for remote mixes"
-msgstr ""
+msgstr "Așteptăm amestecul făcut la distanță"
 
 msgid "Mixing"
-msgstr ""
+msgstr "Amestecăm"
 
 msgid "Validating voting"
-msgstr ""
+msgstr "În curs de validare a votării"
 
 msgid "Election closed"
-msgstr ""
+msgstr "Scrutinul este închis"
 
 msgid "Waiting for voting to start."
-msgstr ""
+msgstr "Așteptăm ca votarea să înceapă"
 
 msgid "Voting stopped. Pending close."
-msgstr ""
+msgstr "Votarea s-a oprit. Așteptăm închiderea"
 
 msgid "Freezing"
-msgstr ""
+msgstr "Se îngheață scrutinul"
 
 msgid "Frozen"
-msgstr ""
+msgstr "Înghețat"
 
 msgid "Election pending to freeze"
-msgstr ""
+msgstr "Scrutinul în curs de înghețare"
 
 msgid "Poll reference id"
-msgstr ""
+msgstr "Identificatorul de referință al votării"
 
 msgid "Poll name"
-msgstr ""
+msgstr "Numele votării"
 
 msgid "Oauth2 login"
 msgstr ""
@@ -174,19 +174,19 @@ msgid "Shibboleth login"
 msgstr ""
 
 msgid "Election forum enabled"
-msgstr ""
+msgstr "Forumul pentru scrutin este activat"
 
 msgid "Forum description"
-msgstr ""
+msgstr "Descrierea foumului"
 
 msgid "Forum access starts at"
-msgstr ""
+msgstr "Accesul la forum începe la"
 
 msgid "Forum access ends at"
-msgstr ""
+msgstr "Accesul la forum se încheie la"
 
 msgid "Forum extension date"
-msgstr ""
+msgstr "Data până la care se extinde accesul la forum"
 
 msgid "JSON Web Token Login"
 msgstr ""
@@ -199,88 +199,88 @@ msgid "Shibboleth authentication"
 msgstr ""
 
 msgid "Prepare poll questions"
-msgstr ""
+msgstr "Pregătește întrebările pentru votare"
 
 msgid "Import voters list"
-msgstr ""
+msgstr "Importă lista de alegători"
 
 msgid "Waiting for all partial decryptions to finish"
-msgstr ""
+msgstr "Așteptăm toate decriptările parțiale să fie finalizate"
 
 msgid "Voting closed"
-msgstr ""
+msgstr "Votarea este închisă"
 
 msgid "Pending election close"
-msgstr ""
+msgstr "Așteptăm închiderea scrutinului"
 
 msgid "No questions set"
-msgstr ""
+msgstr "Nu au fost adăugate întrebări"
 
 msgid "No voters set"
-msgstr ""
+msgstr "Nu au fost adăugați alegători"
 
 msgid "Ready to freeze"
-msgstr ""
+msgstr "Gata de înghețare"
 
 msgid "Election initialized."
-msgstr ""
+msgstr "Scrutinul a fost inițializat."
 
 msgid "Election candidates added."
-msgstr ""
+msgstr "Candidații la scrutin au fost adăugați."
 
 msgid "Election voters added."
-msgstr ""
+msgstr "Alegătorii la scrutin au fost adăugați."
 
 msgid "Trustees keys generated."
-msgstr ""
+msgstr "Cheile gardienilor au fost generate."
 
 msgid "Election opened."
-msgstr ""
+msgstr "Scrutinul a fost deschis."
 
 msgid "Election voters notified"
-msgstr ""
+msgstr "Alegătorii au fost anunțați"
 
 msgid "Election voters which not voted notified"
-msgstr ""
+msgstr "Alegătorii care nu au votat anunțați"
 
 msgid "Election extension needed."
-msgstr ""
+msgstr "Extinderea scrutinului este necesară."
 
 msgid "Election closed."
-msgstr ""
+msgstr "Scrutinul închis."
 
 msgid "Election tallied."
 msgstr ""
 
 msgid "Trustees should decrypt results."
-msgstr ""
+msgstr "Gardienii trebuie să decripteze rezultatele."
 
 msgid "Election results where decrypted."
-msgstr ""
+msgstr "Rezultatele alegerilor unde au fost decriptate."
 
 msgid "YES"
-msgstr ""
+msgstr "DA"
 
 msgid "NO"
-msgstr ""
+msgstr "NU"
 
 msgid "(EXCLUDED)"
-msgstr ""
+msgstr "(EXCLUS)"
 
 msgid "There must be at least two fields, Registration ID and Email"
-msgstr ""
+msgstr "Trebuie cel puțin două câmpuri, ID-ul de înregistrare și email-ul"
 
 #, python-format
 msgid "Malformed mobile phone number: %s"
-msgstr ""
+msgstr "Număr de telefon mobil invalid: %s"
 
 #, python-format
 msgid "Voter weight must be a positive integer, not %s"
-msgstr ""
+msgstr "Ponderea alegătorului trebuie să fie un întreg pozitiv, nu %s"
 
 #, python-format
 msgid "Invalid voter data at line %s"
-msgstr ""
+msgstr "Datele alegătorului de la linia %s sunt invalide"
 
 #, python-format
 msgid "Voter [%s]: Provide at least one of the email and mobile fields."
@@ -297,10 +297,10 @@ msgid "No email set"
 msgstr ""
 
 msgid "Create trustee key"
-msgstr ""
+msgstr "Crează cheie pentru gardian"
 
 msgid "Verify trustee key"
-msgstr ""
+msgstr "Verifică cheia gardianului"
 
 msgid "Partially decrypt votes"
 msgstr ""
@@ -312,10 +312,10 @@ msgid "Create election"
 msgstr ""
 
 msgid "Blank vote"
-msgstr ""
+msgstr "Vot nul"
 
 msgid "Election status"
-msgstr ""
+msgstr "Starea scrutinului"
 
 msgid "Use the following URL to append additional mixes"
 msgstr ""
@@ -324,19 +324,19 @@ msgid "Mixing status"
 msgstr ""
 
 msgid "Freeze election"
-msgstr ""
+msgstr "Îngheață scrutinul"
 
 msgid "Close election"
-msgstr ""
+msgstr "Închide scrutinul"
 
 msgid "Close mixing"
-msgstr ""
+msgstr "Închide amestecarea"
 
 msgid "Cancel election"
-msgstr ""
+msgstr "Anulează scrutinul"
 
 msgid "Save results"
-msgstr ""
+msgstr "Salvează rezultatele"
 
 #, python-format
 msgid ""
@@ -461,7 +461,7 @@ msgid "Voter (desc)"
 msgstr ""
 
 msgid "Voters count"
-msgstr "Numărul de voturi exprimate"
+msgstr "Numărul de alegători"
 
 msgid "Polls count"
 msgstr ""
@@ -479,13 +479,13 @@ msgid "Results"
 msgstr ""
 
 msgid "Election information"
-msgstr ""
+msgstr "Informații privind scrutinul"
 
 msgid "Trustees list"
-msgstr ""
+msgstr "Lista gardienilor"
 
 msgid "Audited ballots"
-msgstr ""
+msgstr "Buletine de vot de auditare"
 
 msgid "Edit election"
 msgstr ""
@@ -506,7 +506,7 @@ msgid "Participate in forum"
 msgstr ""
 
 msgid "Enter voting booth"
-msgstr ""
+msgstr "Intră în cabina de vot"
 
 msgid "Waiting for forum to start."
 msgstr ""
@@ -829,10 +829,10 @@ msgid "Enabled"
 msgstr ""
 
 msgid "Min answers"
-msgstr ""
+msgstr "Nr. minim de răspunsuri"
 
 msgid "Max answers"
-msgstr ""
+msgstr "Nr. maxim de răspunsuri"
 
 msgid "Manage questions"
 msgstr ""
@@ -1232,15 +1232,17 @@ msgid ""
 "\n"
 "The trustees below are responsible for the decryption of the ballots\n"
 msgstr ""
+"\n"
+"Gardienii listați mai jos sunt responsabili pentru decriptarea voturilor\n"
 
 msgid "Trustee election identifier"
 msgstr ""
 
 msgid "Trustee key not verified"
-msgstr ""
+msgstr "Cheia gardianului nu este verificată"
 
 msgid "key verified"
-msgstr ""
+msgstr "cheie verificată"
 
 msgid "Polls decrypted"
 msgstr ""
@@ -1400,10 +1402,10 @@ msgid "Forum daily summary"
 msgstr ""
 
 msgid "Intended recipient"
-msgstr ""
+msgstr "Destinatarul legitim al acestui e-mail"
 
 msgid "Voting link"
-msgstr ""
+msgstr "Link pentru votare"
 
 msgid "You are invited to vote in the poll:"
 msgstr "Ești invitat să votezi în scrutinul:"
@@ -1700,7 +1702,7 @@ msgid "STV ballot box import form"
 msgstr ""
 
 msgid "Ballot"
-msgstr ""
+msgstr "Buletinul de vot"
 
 msgid "Import ballots"
 msgstr ""

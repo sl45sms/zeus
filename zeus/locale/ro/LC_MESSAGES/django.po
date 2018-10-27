@@ -20,50 +20,50 @@ msgstr ""
 "2:1));\n"
 
 msgid "Simple election with one or more questions"
-msgstr ""
+msgstr "Scrutin simplu cu una sau mai multe întrebări"
 
 msgid "Ballot"
 msgstr ""
 
 msgid "Question"
-msgstr ""
+msgstr "Întrebare"
 
 msgid "Answer"
-msgstr ""
+msgstr "Răspuns"
 
 msgid "Add questions to the election"
-msgstr ""
+msgstr "Adaugă întrebări în scrutin"
 
 msgid "Too many choices"
-msgstr ""
+msgstr "Prea multe variante"
 
 #, python-brace-format
 msgid "Question '{0}' requires at least {1} choices."
-msgstr ""
+msgstr "Întrebarea '{0}' necesită cel puțin {1} variante."
 
 msgid "Results"
-msgstr ""
+msgstr "Rezultate"
 
 msgid "Party lists election"
-msgstr ""
+msgstr "Scrutin cu liste de partid"
 
 msgid "Manage ballot"
 msgstr ""
 
 msgid "Candidates"
-msgstr ""
+msgstr "Candidați"
 
 msgid "Candidate"
-msgstr ""
+msgstr "Candidat"
 
 msgid "Party"
-msgstr ""
+msgstr "Partid"
 
 msgid "Preferential voting election (Schulze method)"
-msgstr ""
+msgstr "Scrutin cu vot preferențial (metoda Schulze)"
 
 msgid "Candidates List"
-msgstr ""
+msgstr "Lista Candidaților"
 
 msgid "No candidates set"
 msgstr ""
@@ -72,7 +72,7 @@ msgid "Manage candidates"
 msgstr ""
 
 msgid "Score voting election"
-msgstr ""
+msgstr "Scrutin cu vot cu scoruri"
 
 msgid "Manage questions"
 msgstr ""
@@ -102,29 +102,29 @@ msgid "Greek Universities single governing bodies election"
 msgstr ""
 
 msgid "Voter excluded"
-msgstr ""
+msgstr "Alegător exclus"
 
 #, python-format
 msgid "%s is not a valid character."
 msgstr ""
 
 msgid "Trustees"
-msgstr ""
+msgstr "Gardieni"
 
 msgid "Multiple mixnets"
 msgstr ""
 
 msgid "English"
-msgstr ""
+msgstr "Engleză"
 
 msgid "Greek"
-msgstr ""
+msgstr "Greacă"
 
 msgid "Set the language that will be used for email messages"
-msgstr ""
+msgstr "Alege limba care va fi folosită pentru mesajele email"
 
 msgid "Communication language"
-msgstr ""
+msgstr "Limba de comunicare"
 
 #, python-format
 msgid "Notify voters using SMS (%d deliveries available for your account)"
@@ -159,19 +159,19 @@ msgid "Invalid voting extension date"
 msgstr ""
 
 msgid "Invalid trustees format"
-msgstr ""
+msgstr "Formatarea gardienilor este invalidă"
 
 msgid "Choice"
 msgstr ""
 
 msgid "Min answers"
-msgstr ""
+msgstr "Nr. minim răspunsuri"
 
 msgid "Max answers"
-msgstr ""
+msgstr "Nr. maxim răspunsuri"
 
 msgid "Max answers should be greater or equal to min answers"
-msgstr ""
+msgstr "Nr. maxim de răspunsuri trebuie să fie mai mare sau egal cu nr. minim de răspunsuri"
 
 msgid "No duplicate choices allowed"
 msgstr ""
@@ -180,10 +180,10 @@ msgid "Party name"
 msgstr ""
 
 msgid "Scores"
-msgstr ""
+msgstr "Scoruri"
 
 msgid "Number of answers must be equal or bigger than max answers"
-msgstr ""
+msgstr "Numărul de variante posibile trebuie să fie mai mare sau egal cu nr. maxim de răspunsuri"
 
 msgid "https://en.wikipedia.org/wiki/Droop_quota"
 msgstr ""
@@ -237,7 +237,7 @@ msgid "Invalid username or password"
 msgstr ""
 
 msgid "Your account is disabled"
-msgstr ""
+msgstr "Contul tău este dezactivat"
 
 msgid "Poll forum enabled"
 msgstr ""
@@ -274,51 +274,53 @@ msgid "Forum cannot be enabled for linked polls"
 msgstr ""
 
 msgid "Duplicate poll names are not allowed"
-msgstr ""
+msgstr "Nu este permis același nume de votare de mai multe ori"
 
 msgid ""
 "Poll name cannot be changed                                               "
 "after freeze"
 msgstr ""
+"Numele votării nu poate fi schimbat                                               "
+"după înghețare"
 
 msgid "This URL is invalid"
-msgstr ""
+msgstr "Acest URL este invalid"
 
 msgid "all selected voters"
-msgstr ""
+msgstr "toți alegătorii selectați"
 
 msgid "selected voters who have cast a ballot"
-msgstr ""
+msgstr "toți alegătorii care au votat deja"
 
 msgid "selected voters who have not yet cast a ballot"
-msgstr ""
+msgstr "toți alegătorii care nu au votat încă"
 
 msgid "Email only"
-msgstr ""
+msgstr "Numai prin email"
 
 msgid "SMS only"
-msgstr ""
+msgstr "Numai prin SMS"
 
 msgid "Email and SMS"
-msgstr ""
+msgstr "Prin email și SMS"
 
 msgid "Email subject"
-msgstr ""
+msgstr "Subiectul emailului"
 
 msgid "In place of BODY"
-msgstr ""
+msgstr "În locul lui BODY"
 
 msgid "In place of SMS_BODY"
-msgstr ""
+msgstr "În loclui lui SMS_BODY"
 
 msgid "Contact method"
 msgstr ""
 
 msgid "Do not send sms if voter email is set"
-msgstr ""
+msgstr "Nu trimite sms dacă adresa de email a alegătorului este completată"
 
 msgid "Send To"
-msgstr ""
+msgstr "Trimite către"
 
 msgid "Email"
 msgstr ""
@@ -368,7 +370,7 @@ msgid ""
 msgstr ""
 
 msgid "Election name"
-msgstr ""
+msgstr "Numele scrutinului"
 
 msgid "Voting start date"
 msgstr ""
@@ -399,60 +401,64 @@ msgid "Candidate %s is invalid"
 msgstr ""
 
 msgid "This is a trial election"
-msgstr ""
+msgstr "Acesta este un scrutin de test"
 
 msgid "Choose the type of the election"
-msgstr ""
+msgstr "Alege tipul de scrutin"
 
 msgid "TRUSTEES_LIST_HELP_TEXT"
 msgstr ""
+"Lista gardienilor. e.g., <br/><br/>Ioana Petrescu, ipetrescu@email.com<br/>Mihai "
+"Popescu, mpopescu2212@gmail.com<br/>"
 
 msgid "Election description"
-msgstr ""
+msgstr "Descrierea scrutinului"
 
 msgid "When voting ends"
-msgstr ""
+msgstr "Când se termină votul"
 
 msgid "When voting starts"
-msgstr ""
+msgstr "Când începe votul"
 
 msgid "Voting extension date"
 msgstr ""
 
 msgid "Voters can contact this email for election support"
-msgstr ""
+msgstr "Alegătorii pot scrie la această adresă de email pentru asistență tehnică"
 
 msgid "Voters can contact this phone for election support"
-msgstr ""
+msgstr "Alegătorii pot suna la acest număr pentru asistență tehnică"
 
 msgid "Whether or not to allow remote mixing"
 msgstr ""
 
 msgid "Require voters to accept specified terms in order to cast a vote."
-msgstr ""
+msgstr "Obligă alegătorii să accepte termenii de mai jos pentru a putea vota"
 
 msgid "Whether or not to enable election forum"
-msgstr ""
+msgstr "Dacă se activează forumul pentru alegeri"
 
 msgid "Forum access starts at"
-msgstr ""
+msgstr "Accesul la forum începe la"
 
 msgid "Forum access ends at"
-msgstr ""
+msgstr "Accesul la forum se termină la"
 
 msgid ""
 "Confirm voter removal: {{ voter.voter_name}} {{ voter.voter_surname }} "
 "{{ voter.voter_fathername }} ({{ voter.voter_contact_field_display }})"
 msgstr ""
+"Confirmă eliminarea alegătorului: {{ voter.voter_name}} {{ voter.voter_surname }} "
+"{{ voter.voter_fathername }} ({{ voter.voter_contact_field_display }})"
 
 msgid "Are you sure you want to delete the selected trustee ?"
-msgstr ""
+msgstr "Ești sigur că vrei să elimini gardianul pe care l-ai selectat?"
 
 msgid "Are you sure you want to freeze the election ?"
-msgstr ""
+msgstr "Ești sigur că vrei înghețarea ('baterea în cuie') scrutinului?"
 
 msgid "Are you sure you want to delete the selected poll ?"
-msgstr ""
+msgstr "Ești sigur că vrei să ștergi întrebarea selectată?"
 
 msgid "Start"
 msgstr ""
@@ -470,28 +476,28 @@ msgid "Excluded voters"
 msgstr ""
 
 msgid "Poll name"
-msgstr ""
+msgstr "Numele votării"
 
 msgid "RESULTS"
-msgstr ""
+msgstr "REZULTATE"
 
 msgid "TOTAL VOTES"
-msgstr ""
+msgstr "VOTURI TOTALE"
 
 msgid "VALID VOTES"
-msgstr ""
+msgstr "VOTURI VALIDE"
 
 msgid "INVALID VOTES"
-msgstr ""
+msgstr "VOTURI INVALIDE"
 
 msgid "BLANK VOTES"
-msgstr ""
+msgstr "VOTURI NULE"
 
 msgid "PARTY RESULTS"
-msgstr ""
+msgstr "REZULTATE PARTID"
 
 msgid "CANDIDATE RESULTS"
-msgstr ""
+msgstr "REZULTATE CANDIDAT"
 
 msgid "BALLOTS"
 msgstr ""
@@ -691,7 +697,7 @@ msgid "Shibboleth voter info assertion failed."
 msgstr ""
 
 msgid "Trustee login url sent"
-msgstr ""
+msgstr "URL-ul de login pentru gardieni a fost trimis"
 
 msgid "You cannot modify a post with existing replies"
 msgstr ""
@@ -736,16 +742,16 @@ msgid "No file uploaded"
 msgstr ""
 
 msgid "Time to Vote"
-msgstr ""
+msgstr "E momentul votului"
 
 msgid "Additional Info"
 msgstr ""
 
 msgid "Voting end date extended"
-msgstr ""
+msgstr "Data de sfârșit a votării a fost prelungită"
 
 msgid "No voters were found."
-msgstr ""
+msgstr "Nu s-au identificat alegători."
 
 msgid "Email sending started"
 msgstr ""
@@ -757,7 +763,7 @@ msgid "No SMS deliveries left."
 msgstr ""
 
 msgid "Voter removed successfully"
-msgstr ""
+msgstr "Alegătorul a fost șters"
 
 msgid "Poll does not support voter url login."
 msgstr ""
@@ -778,7 +784,7 @@ msgid "There are too many requests from your address"
 msgstr ""
 
 msgid "There are too many emails registered from your address"
-msgstr ""
+msgstr "Sunt prea multe emailuri înregistrate de la adresa ta"
 
 msgid "Cannot create demo users right now. Sorry."
 msgstr ""
