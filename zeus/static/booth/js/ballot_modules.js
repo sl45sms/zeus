@@ -225,7 +225,7 @@ BM.ModuleBase,
 
   expanded_parties: function() {
     var qnum = this.data.length;
-    var ansnum = this.data.reduce((a, q) => a.concat(q.answers), []).length;
+    var ansnum = this.data.reduce(function(a, q) { return a.concat(q.answers) }, []).length;
     return qnum == 1;
   },
 
