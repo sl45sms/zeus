@@ -6,9 +6,10 @@
   </p>
   <div class="panel confirm-vote">
     {#foreach $T.questions as question}
+    <h6 style="margin-top: 10px"><span class="question" style="margin-top:0;">{show($T.question.question)}</span></h6>
     <ul class="confirm-choices">
       {#foreach $T.choices[$T.question$index] as choice}
-      <li><h6>{$T.choice}</h6></li>
+      <li><h6><span>{$T.choice.answer}: </span><span class="score" style="color: #1e728c">{$T.choice.score}</span></h6></li>
       {#/for}
       {#if !$T.choices[$T.question$index].length }
       <li><h5>{gettext("BLANK_BALLOT")}</h5></li>

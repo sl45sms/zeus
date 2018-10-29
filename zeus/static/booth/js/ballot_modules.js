@@ -688,15 +688,20 @@ BM.ModuleBase,
           var score = _.filter(_.keys(this.scores_indexes[qi]), function(key, score) { 
             return this.scores_indexes[qi][parseInt(key)] == score_index;
           }, this)[0];
-          _choices.push(q.question + ": " + a + ": " + score);
+          _choices.push([{score: score, answer: a}, parseInt(score)]);
         }
       }, this);
     }, this);
 
+    _choices = _choices.concat()
+        .sort(function(a, b) { return a[1] < b[1] })
+        .map(function(i) { return i[0] });
+
     return [_choices]
   },
 
-  seal_tpl: 'seal_score.html'
+  seal_tpl: "seal_score.html"
+
 });
 
 BM.STVElection = function(election) {
