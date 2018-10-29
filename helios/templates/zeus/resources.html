@@ -13,11 +13,11 @@
         <li>{% trans "Election admin guides" %}
         <ul>
           {% for guide in guides.admin %}
-          <li><a href="{{ MEDIA_URL }}manuals/{{ guide.fname }}{{ guide.lang }}.{{ guide.extensions.0.ext }}">
+          <li><a href="{{ STATIC_URL }}manuals/{{ guide.fname }}{{ guide.lang }}.{{ guide.extensions.0.ext }}">
                   {{ guide.label }}{% if guide.sublabel %} "{{ guide.sublabel }}"{% endif %}
                 </a>
                 {% if guide.extensions.1 %}
-                [<a href="{{ MEDIA_URL }}manuals/{{ guide.fname }}{{ guide.lang }}.{{ guide.extensions.1.ext }}">{{ guide.extensions.1.label }}</a>]
+                [<a href="{{ STATIC_URL }}manuals/{{ guide.fname }}{{ guide.lang }}.{{ guide.extensions.1.ext }}">{{ guide.extensions.1.label }}</a>]
                 {% endif %}
             </li>
           {% endfor %}
@@ -26,11 +26,11 @@
         <li>{% trans "Voter guides" %}
         <ul>
           {% for guide in guides.voter %}
-          <li><a href="{{ MEDIA_URL }}manuals/{{ guide.fname }}{{ guide.lang }}.{{ guide.extensions.0.ext }}">
+          <li><a href="{{ STATIC_URL }}manuals/{{ guide.fname }}{{ guide.lang }}.{{ guide.extensions.0.ext }}">
                   {{ guide.label }}{% if guide.sublabel %} "{{ guide.sublabel }}"{% endif %}
                 </a>
                 {% if guide.extensions.1 %}
-                [<a href="{{ MEDIA_URL }}manuals/{{ guide.fname }}{{ guide.lang }}.{{ guide.extensions.1.ext }}">{{ guide.extensions.1.label }}</a>]
+                [<a href="{{ STATIC_URL }}manuals/{{ guide.fname }}{{ guide.lang }}.{{ guide.extensions.1.ext }}">{{ guide.extensions.1.label }}</a>]
                 {% endif %}
             </li>
           {% endfor %}
