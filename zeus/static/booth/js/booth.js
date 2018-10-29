@@ -154,7 +154,7 @@ function escape_html(content) {
 BOOTH.setup_election = function(raw_json) {
   
   // TODO: how to resolve url dynamically ???
-  BOOTH.logout_url = '/auth/auth/logout?return_url=';
+  BOOTH.logout_url = '/zeus/auth/auth/logout?return_url=';
 
   // IMPORTANT: we use the raw JSON for safer hash computation
   // so that we are using the JSON serialization of the SERVER
@@ -167,9 +167,13 @@ BOOTH.setup_election = function(raw_json) {
   }
     
     var msg = gettext("BROWSER_NOT_SUPPORTED_ALERT");
-    if ($.browser.msie) {
+    var check1 = $.browser.msie;
+    var check2 = window.navigator && window.navigator.userAgent && window.navigator.userAgent.indexOf && window.navigator.userAgent.indexOf("Trident") > -1
+    if (check1 || check2) {
+            window.onbeforeunload = null;
             alert(interpolate(msg, BOOTH.election.help_phone));
-            window.location = BOOTH.logout_url + '/faqs/voter/#browser-support';
+            window.location = BOOTH.logout_url + '/zeus/faqs/voter/#browser-support';
+	    return;
         }
 
   var answers_index = 0;
