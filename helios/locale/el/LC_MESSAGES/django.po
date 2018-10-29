@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-22 15:08+0300\n"
+"POT-Creation-Date: 2018-10-29 17:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -321,8 +321,17 @@ msgstr "Ψηφοφορίες"
 msgid "Create election"
 msgstr "Δημιουργία ψηφοφορίας"
 
+msgid "Audit ballot"
+msgstr "Ψήφος ελέγχου"
+
+msgid "Choice"
+msgstr "Επιλογή"
+
 msgid "Blank vote"
 msgstr "Λευκή ψήφος"
+
+msgid "show"
+msgstr "προβολή"
 
 msgid "Election status"
 msgstr "Κατάσταση ψηφοφορίας"
@@ -1655,6 +1664,9 @@ msgstr "Αρχική"
 msgid "Contact"
 msgstr "Επικοινωνία"
 
+msgid "Resources"
+msgstr "Υλικό"
+
 msgid ""
 "For questions and comments regarding the Zeus platform you may contact us at "
 "<a href=\"mailto:helpdesk@zeus.grnet.gr\">helpdesk@zeus.grnet.gr</a>.\n"
@@ -1875,9 +1887,6 @@ msgstr "Σφάλμα κατά την αποστολή email στους ψηφο�
 msgid "FAQ"
 msgstr "Ερωτήσεις-Απαντήσεις"
 
-msgid "Resources"
-msgstr "Υλικό"
-
 msgid "Invalid link."
 msgstr "Μη έγκυρος σύνδεσμος."
 
@@ -1895,6 +1904,12 @@ msgid "Something went wrong !!!"
 msgstr ""
 "Προέκυψε σφάλμα διακομιστή, παρακαλούμε ενημερώστε τους διαχειριστές του "
 "συστήματος."
+
+msgid "Election admin guides"
+msgstr "Οδηγίες για τους διαχειριστές"
+
+msgid "Voter guides"
+msgstr "Οδηγίες για τους ψηφοφόρους"
 
 msgid "Choose election"
 msgstr "Επιλογή ψηφοφορίας"
@@ -1947,18 +1962,3 @@ msgstr "Για να ξεκινήσετε νέα καταμέτρηση πατή�
 
 msgid "Terms of use"
 msgstr "Όροι χρήσης"
-
-msgid "Election admin guides"
-msgstr "Οδηγίες για τους διαχειριστές"
-
-msgid "Voter guides"
-msgstr "Οδηγίες για τους ψηφοφόρους"
-
-msgid "Admin guide for"
-msgstr "Οδηγός διαχειριστή για"
-
-msgid "Voter guide for"
-msgstr "Οδηγός ψηφοφόρου για"
-
-msgid "Voter quick guide for"
-msgstr "Σύντομος οδηγός ψηφοφόρου για"

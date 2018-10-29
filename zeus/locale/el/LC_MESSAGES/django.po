@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-22 15:08+0300\n"
+"POT-Creation-Date: 2018-10-29 17:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -113,12 +113,6 @@ msgstr "Εφορευτική επιτροπή"
 
 msgid "Multiple mixnets"
 msgstr "Πολλαπλές μίξεις"
-
-msgid "English"
-msgstr "Αγγλικά"
-
-msgid "Greek"
-msgstr "Ελληνικά"
 
 msgid "Set the language that will be used for email messages"
 msgstr "Επιλέξτε τη γλώσσα που θα χρησιμοποιηθεί για τα μηνύματα των email"
@@ -482,6 +476,24 @@ msgstr "Επιβεβαιώστε την οριστικοποίηση της ψη
 
 msgid "Are you sure you want to delete the selected poll ?"
 msgstr "Επιβεβαιώστε τη διαγραφή της επιλεγμένης κάλπης"
+
+msgid "Admin guide for"
+msgstr "Οδηγός διαχειριστή για"
+
+msgid "Voter guide for"
+msgstr "Οδηγός ψηφοφόρου για"
+
+msgid "Voter quick guide for"
+msgstr "Σύντομος οδηγός ψηφοφόρου για"
+
+msgid "Greek"
+msgstr "Ελληνικά"
+
+msgid "English"
+msgstr "Αγγλικά"
+
+msgid "Romanian"
+msgstr "Ρουμανικά"
 
 msgid "Start"
 msgstr "Έναρξη"

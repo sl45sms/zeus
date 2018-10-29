@@ -12,3 +12,11 @@ TRUSTEE_REMOVE_CONFIRM = _("Are you sure you want to delete the selected"
 
 ELECTION_FREEZE_CONFIRM = _("Are you sure you want to freeze the election ?")
 POLL_DELETE_CONFIRM = _("Are you sure you want to delete the selected poll ?")
+
+ADMIN_GUIDE = _('Admin guide for')
+VOTER_GUIDE = _('Voter guide for')
+VOTER_QUICK_GUIDE = _('Voter quick guide for')
+
+LANG_EL = _('Greek')
+LANG_EN = _('English')
+LANG_RO = _('Romanian')
