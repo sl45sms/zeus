@@ -2048,8 +2048,9 @@ def gamma_decode_to_party_ballot(encoded, candidates, parties, nr_groups,
 
         if thegroup is None:
             thegroup = group
-            if i == party_list['choice_index']:
-                no_candidates_flag = 1
+
+        if i == party_list['choice_index']:
+            no_candidates_flag = 1
             #continue
 
         if thegroup != group:
@@ -2076,7 +2077,8 @@ def gamma_decode_to_party_ballot(encoded, candidates, parties, nr_groups,
         if party not in voted_parties_counts:
             voted_parties_counts[party] = 0
         voted_parties_counts[party] += 1
-        voted_candidates.append((party, name))
+        if not no_candidates_flag:
+            voted_candidates.append((party, name))
 
     if choices and valid:
         # validate number of choices for each party separately
