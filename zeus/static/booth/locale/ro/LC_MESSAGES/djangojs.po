@@ -78,7 +78,7 @@ msgid "HELP_EMAIL_BODY"
 msgstr "Am următoarea problemă:"
 
 msgid "ELECTION_INIT_ERROR"
-msgstr "Eroare în inițializarea scrutinului"
+msgstr "Eroare în inițializarea alegerilor"
 
 msgid "ENCRYPTION_PROCESS_FAILED"
 msgstr "Criptarea a eșuat."
@@ -106,7 +106,7 @@ msgid "AUDIT_BALLOT_SET"
 msgstr ""
 "Ai completat un buletin de vot de test (de auditare). Acest buletin nu va fi numărat, iar "
 "conținutul său va fi înregistrat și publicat într-un registru public disponibil în "
-"tabloul de bord al scrutinului."
+"tabloul de bord al alegerilor."
 
 
 msgid "AUDIT_BALLOT_BACK_PROMPT"
@@ -119,7 +119,7 @@ msgid "AUDIT_BALLOT_BACK_BUTTON"
 msgstr "Înapoi"
 
 msgid "AUDIT_BALLOT_BACK_TO_ELECTION_BUTTON"
-msgstr "Înapoi la tabloul de bord al scrutinului"
+msgstr "Înapoi la tabloul de bord al alegerilor"
 
 msgid "BALLOT_SUBMISSION_IN_PROGRESS"
 msgstr "Submitting ballot..."
@@ -168,13 +168,13 @@ msgstr ""
 "    </p>"
 
 msgid "BACK_TO_ELECTION"
-msgstr "Înapoi la tabloul de bord al scrutinului"
+msgstr "Înapoi la tabloul de bord al alegerilor"
 
 msgid "START"
 msgstr "Start"
 
 msgid "ELECTION_KEY_NOT_INITIALIZED"
-msgstr "Scrutinul nu a fost încă inițializat"
+msgstr "Alegerile nu au fost încă inițializate"
 
 msgid "POLL_IDENTIFIER"
 msgstr "Identificatorul scrutinului"
@@ -218,7 +218,7 @@ msgid "choices"
 msgstr "opțiuni"
 
 msgid "to"
-msgstr "to"
+msgstr "la"
 
 msgid "Blank vote"
 msgstr "Vot nul"
