@@ -18,15 +18,11 @@ def get_oauth2_module(poll):
 
 def oauth2_callback_url():
     base = settings.SECURE_URL_HOST
-    prefix = settings.SERVER_PREFIX
     path = reverse('oauth2_login')
-    if prefix:
-        path = prefix + path
     if path.startswith("/"):
         path = path[1:]
     if base.endswith("/"):
         base = base[:-1]
-
     return "/".join([base, path])
 
 
