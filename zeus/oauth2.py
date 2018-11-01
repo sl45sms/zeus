@@ -160,4 +160,19 @@ class Oauth2Other(Oauth2Base):
         self.expires_in = data['expires_in']
 
     def confirm_email(self):
-        raise NotImplemented
+        self.poll.logger.info("[thirdparty-other] Confirm email %s (%s)",
+                              access_token, self.confirmation_url)
+        data = urllib.urlencode({'access_token': self.access_token})
+        response = urllib2.urlopen(self.confirmation_url, data)
+        self.poll.logger.info("[thirdparty-other] received data from confirmation url %r" % response)
+        resp = response.read()
+        data = json.loads(resp)
+        response_email = data
+
+        if 'email' in data:
+            response_email = data['email']
+        if 'emails' in data:
+            response_email = data['emails'][0]['value']
+        if response_email == self.session_email:
+            return True, data
+        return False, data
