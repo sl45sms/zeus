@@ -2230,16 +2230,10 @@ class AuditedBallot(models.Model):
 
   @property
   def choices(self):
+    module = self.poll.get_module()
     answers = self.poll.questions[0]['answers']
-    nr_answers = len(answers)
     encoded = self.vote.encrypted_answers[0].answer
-    max_encoded = gamma_encoding_max(nr_answers)
-    if encoded > max_encoded:
-        choices = []
-    else:
-        selection = gamma_decode(encoded, nr_answers)
-        choices = to_absolute_answers(selection, nr_answers)
-    return map(lambda x:answers[x], choices)
+    return module.get_choices_pretty(encoded, answers)
 
   @classmethod
   def get(cls, election, vote_hash):

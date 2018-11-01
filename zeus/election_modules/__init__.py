@@ -6,6 +6,7 @@ import logging
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
+from zeus import core
 from zeus.reports import csv_from_polls, csv_from_score_polls,\
                          csv_from_stv_polls, csv_from_preference_polls
 from zeus.utils import get_filters, VOTER_TABLE_HEADERS, VOTER_SEARCH_FIELDS, \
@@ -302,6 +303,19 @@ class ElectionModuleBase(ElectionHooks):
 
     def can_edit_polls(self):
         return True
+    
+    def get_choices_pretty(self, encoded, answers):
+        choices = self.get_choices(encoded, len(answers), answers)
+        return map(lambda x:answers[x], choices)
+
+    def get_choices(self, encoded, nr_answers, answers=None, params=None):
+        max_encoded = core.gamma_encoding_max(nr_answers)
+        if encoded > max_encoded:
+            choices = []
+        else:
+            selection = core.gamma_decode(encoded, nr_answers)
+            choices = to_absolute_answers(selection, nr_answers)
+        return choices
 
 
 

@@ -1,5 +1,7 @@
+import copy
 import zipfile
 import os
+import re
 from itertools import izip_longest
 
 from django.utils.translation import ugettext_lazy as _
@@ -9,6 +11,7 @@ from django.conf import settings
 
 from zeus.election_modules import ElectionModuleBase, election_module
 from zeus.views.utils import set_menu
+from zeus import core
 from helios.view_utils import render_template
 
 
@@ -162,3 +165,18 @@ class ScoreBallotElection(ElectionModuleBase):
             self.generate_election_csv_file(lang)
             self.generate_election_result_docs(lang)
             self.generate_election_zip_file(lang)
+
+    def get_choices_pretty(self, encoded, answers):
+        choices = self.get_choices(encoded, len(answers), answers)
+        return map(lambda x: '%s: %s' % x, sorted(choices['candidates'].iteritems(), key=lambda x: -x[1]))
+
+    def get_choices(self, encoded, nr_answers, answers=None, params=None):
+        assert answers is not None
+        answers = answers[:]
+        if params is None:
+            params = answers[-1]
+            if not re.match(r"\d{1,}-\d{1,}", params):
+                params = "%d-%d" % (0, len(answers))
+            else:
+                params = answers.pop()
+        return core.gamma_decode_to_range_ballot(encoded, answers)
