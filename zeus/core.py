@@ -1854,7 +1854,21 @@ def combine_candidates_and_points(candidates, points):
       return candidates_and_points
 
 
-def gamma_count_range(encoded_list, candidates_and_points, params):
+
+def range_params_from_candidates(candidates):
+    params = candidates[-1]
+    try:
+        params = map(int, params.split('-'))
+        candidates = candidates[:-1]
+    except ValueError:
+        params = [0, len(candidates)]
+    return candidates, '-'.join(map(str, params))
+
+
+def gamma_count_range(encoded_list, candidates_and_points, params=None):
+    if params is None:
+        candidates_and_points, params = \
+            range_params_from_candidates(candidates_and_points)
     candidates, pointlist = range_split_candidates(candidates_and_points)
     detailed = {}
     totals = {}
@@ -4575,6 +4589,12 @@ def main():
     parser.add_argument('--count-parties', action='store_true', default=False,
                         help="Count results based on candidate parties")
 
+    parser.add_argument('--count-range', action='store_true', default=False,
+                        help="Count results based on range choices")
+
+    parser.add_argument('--count-candidates', action='store_true', default=False,
+                        help="Count results based on candidates choices")
+
     parser.add_argument('--extract-signatures', metavar='prefix',
         help="Write election signatures for counted votes to files")
 
@@ -4691,6 +4711,20 @@ def main():
         import json
         print json.dumps(results, ensure_ascii=False, indent=2)
 
+    def do_count_range(election):
+        results = election.do_get_results()
+        candidates = election.do_get_candidates()
+        results = gamma_count_range(results, candidates)
+        import json
+        print json.dumps(results, ensure_ascii=False, indent=2)
+
+    def do_count_candidates(election):
+        results = election.do_get_results()
+        candidates = election.do_get_candidates()
+        results = gamma_count_candidates(results, candidates)
+        import json
+        print json.dumps(results, ensure_ascii=False, indent=2)
+
     def main_generate(args, teller=_teller, nr_parallel=0):
         filename = args.generate
         filename = filename[0] if filename else None
@@ -4730,6 +4764,12 @@ def main():
         if args.count_parties:
             do_count_parties(election)
 
+        if args.count_range:
+            do_count_range(election)
+
+        if args.count_candidates:
+            do_count_candidates(election)
+
         if args.report:
             print report
 
@@ -4764,6 +4804,12 @@ def main():
 
         if args.count_parties:
             do_count_parties(election)
+
+        if args.count_range:
+            do_count_range(election)
+
+        if args.count_candidates:
+            do_count_candidates(election)
 
         if args.report:
             do_report(election)
