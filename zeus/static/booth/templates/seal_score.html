@@ -7,14 +7,20 @@
   <div class="panel confirm-vote">
     {#foreach $T.questions as question}
     <h6 style="margin-top: 10px"><span class="question" style="margin-top:0;">{show($T.question.question)}</span></h6>
+    <table class="pretty">
+      <tbody>
     <ul class="confirm-choices">
       {#foreach $T.choices[$T.question$index] as choice}
-      <li><h6><span>{$T.choice.answer}: </span><span class="score" style="color: #1e728c">{$T.choice.score}</span></h6></li>
+      <tr>
+        <td><span>{$T.choice.answer}: </span></td>
+        <td><span class="score" style="color: #1e728c">{$T.choice.score}</span></td>
+      </tr>
       {#/for}
       {#if !$T.choices[$T.question$index].length }
-      <li><h5>{gettext("BLANK_BALLOT")}</h5></li>
+      <tr><td>{gettext("BLANK_BALLOT")}</td></tr>
       {#/if}
-    </ul>
+      </tbody>
+    </table>
   </div>
 </div>
 <div class="columns twelve">
