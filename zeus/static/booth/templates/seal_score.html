@@ -6,7 +6,7 @@
   </p>
   <div class="panel confirm-vote">
     {#foreach $T.questions as question}
-    <h6 style="margin-top: 10px"><span class="question" style="margin-top:0;">{show($T.question.question)}</span></h6>
+    <h6 style="margin-top: 10px"><span class="question" style="margin-top:0;">{show($T.election.questions_data[$T.question$index].question)}</span></h6>
     <table class="pretty">
       <tbody>
     <ul class="confirm-choices">
@@ -17,7 +17,7 @@
       </tr>
       {#/for}
       {#if !$T.choices[$T.question$index].length }
-      <tr><td>{gettext("BLANK_BALLOT")}</td></tr>
+      <tr><td><h5>{gettext("BLANK_BALLOT")}</h5></td></tr>
       {#/if}
       </tbody>
     </table>
