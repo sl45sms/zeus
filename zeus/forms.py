@@ -606,12 +606,12 @@ class StvForm(QuestionBaseForm):
         if '%' in answer_lst[0]:
             raise forms.ValidationError(INVALID_CHAR_MSG % "%")
         if not answer_lst[0]:
+            message = _("This field is required.")
             self._errors[field_key] = ErrorList([message])
         answer_lst[0] = answer_lst[0].strip()
         return answer_lst[0], json.dumps(answer_lst)
 
     def clean(self):
-        message = _("This field is required.")
         answers = len(
             filter(
                 lambda k: k.startswith(
