@@ -19,5 +19,4 @@ class Command(BaseCommand):
             voters = Voter.objects.all()
 
         for v in voters:
-            print v.voter_email, v.voter_surname, v.voter_name, v.voter_fathername
-
+            print v.voter_email
