@@ -184,7 +184,7 @@ def do_cast_vote(conn, cast_path, token, headers, vote):
         print response.status
     conn.close()
 
-def _make_vote(poll_data):
+def _make_vote(poll_data, choices=None):
     pk = poll_data['public_key']
     p = int(pk['p'])
     g = int(pk['g'])
@@ -232,7 +232,7 @@ def cast_vote(voter_url, choices=None):
     headers['Referer'] = voter_url
 
     voter_path = conn.path
-    vote, encoded, rand = _make_vote(poll_info['poll_data'])
+    vote, encoded, rand = _make_vote(poll_info['poll_data'], choices)
     cast_path = poll_info['poll_data']['cast_url']
     do_cast_vote(conn, cast_path, csrf_token, headers, vote)
     return encoded, rand
