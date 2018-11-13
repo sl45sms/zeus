@@ -100,7 +100,7 @@ class TestElectionBase(SetUpAdminAndClientMixin, TestCase):
             print "Election form without trustees was not accepted"
         '''
 
-        if self.election_type in ['unicouncilsgr', 'stv']:
+        if self.election_type in ['unicouncilsgr']:
 
             self.assertRaises(
                 IndexError,
@@ -1273,6 +1273,11 @@ class TestSTVElection(TestElectionBase):
     def test_election_process(self):
         self.election_process()
 
+
+class TestSTVNoDepartments(TestSTVElection):
+    def setUp(self):
+        super(TestSTVNoDepartments, self).setUp()
+        self.departments = ""
 
 class TestUniCouncilsGrElection(TestSTVElection):
 
