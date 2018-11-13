@@ -212,7 +212,7 @@ class ElectionForm(forms.ModelForm):
 
         _module = self.data.get('election_module', None)
         _module = _module or (self.instance and self.instance.election_module)
-        if _module in ['unicouncilsgr', 'stv']:
+        if _module in ['unicouncilsgr']:
             self.fields['departments'].required = True
 
         if self.instance and self.instance.pk:

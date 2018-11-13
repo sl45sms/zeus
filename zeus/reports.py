@@ -328,9 +328,11 @@ def csv_from_stv_polls(election, polls, lang, outfile=None):
             for winner_data in results_winners:
                  winner_id = winner_data[0]
                  winner = indexed_cands[str(winner_id)]
-                 winner = winner.split(':')
-                 winner_name = winner[0]
-                 winner_department = winner[1]
+                 winner_name, winner_department = winner, ''
+                 if ':' in winner:
+                    winner_params = winner.split(':')
+                    winner_name = winner_params[0]
+                    winner_department = winner_params[1]
                  writerow([strforce(winner_name), strforce(winner_department)])
             for num, round in rounds:
                 round_name = _('Round ')

@@ -93,8 +93,12 @@ class UniCouncilsGr(ElectionModuleBase):
                     departments = [json.loads(x[1])[1] for x in sorted_answers]
 
                     final_answers = []
+                    join = ":"
                     for a,d in zip(answers, departments):
-                        final_answers.append(a+':'+d)
+                        prefixed_d = d
+                        if d:
+                            prefixed_d = ":" + d
+                        final_answers.append(a+prefixed_d)
                     question['answers'] = final_answers
                     for k in question.keys():
                         if k in ['DELETE', 'ORDER']:
@@ -196,7 +200,9 @@ class UniCouncilsGr(ElectionModuleBase):
         count_id = 0
 
         for item in cands_data:
-            cand_and_dep = item.split(':')
+            cand_and_dep = item, ''
+            if ":" in item:
+                cand_and_dep = item.split(':')
             constituencies[str(count_id)] = cand_and_dep[1]
             count_id += 1
 
