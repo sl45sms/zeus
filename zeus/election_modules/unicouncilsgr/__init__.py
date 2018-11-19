@@ -231,6 +231,8 @@ class UniCouncilsGr(ElectionModuleBase):
         self.poll.logger.info(
             "Count STV results [seats:{} droop:{} quota_limit:{}]".format(
                 seats, droop, quota_limit))
+        if not self.poll.election.departments:
+            constituencies = {}
         results = count_stv(ballots, seats, droop, constituencies, quota_limit,
                             rnd_gen, logger=stv_logger)
         results = list(results[0:2])
