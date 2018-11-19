@@ -324,6 +324,10 @@ def csv_from_stv_polls(election, polls, lang, outfile=None):
             stv = STVParser(result_steps)
             rounds = list(stv.rounds())
             writerow([])
+            writerow([strforce(_("Candidates"))])
+            for item in questions[0]['answers']:
+                writerow([strforce(item)])
+            writerow([])
             writerow([strforce(_("Elected")), strforce(_("Departments"))])
             for winner_data in results_winners:
                  winner_id = winner_data[0]
