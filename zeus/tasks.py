@@ -179,7 +179,7 @@ def send_cast_vote_email(poll_pk, voter_pk, signature, fingerprint):
         email_body = "email/cast_done_body.txt"
         sms_body = "sms/cast_done_body.txt"
         # send it via the notification system associated with the auth system
-        attachments = [('vote.signature', signature['signature'], 'application/octet-stream')]
+        attachments = [('vote.signature', signature['signature'].encode("utf8"), 'application/octet-stream')]
 
         subject_tpls = {
             'email': email_subject,
