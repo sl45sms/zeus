@@ -11,13 +11,20 @@ ELECTION_LOG_DIR = getattr(settings, 'ZEUS_ELECTION_LOG_DIR', '/tmp/')
 ELECTION_STREAM_HANDLER = getattr(settings, 'ZEUS_ELECTION_STREAM_HANDLER', False)
 
 
-def _get_user_id(user=None):
-    thread_user = None
-    if hasattr(_locals, 'user_id'):
-        thread_user = unicode(_locals.user_id)
+def _get_locals_key(key, obj=None):
+    if obj and hasattr(obj, '_logging_locals'):
+        lcls = getattr(obj, '_logging_locals')
+        if key in lcls and lcls[key]:
+            return lcls[key]
+    if hasattr(_locals, key):
+        return getattr(_locals, key)
+    return None
+
+def _get_user_id(user=None, obj=None):
+    thread_user = _get_locals_key('user_id', obj)
     user_id = None
     if thread_user:
-        user_id = thread_user
+        user_id = unicode(thread_user)
     if user:
         user_id = user.user_id
     return user_id
@@ -36,12 +43,13 @@ def _close_logger(inst):
             hasattr(handler, 'close') and handler.close()
 
 def _get_logger(uuid, obj, user, fmt, extra={}):
-    user_id = _get_user_id(user)
+    if hasattr(obj, '_logging_locals'):
+        logging_locals = getattr(obj, '_logging_locals')
+    user_id = _get_user_id(user, obj=obj)
     key = '%s_%s' % (obj.__class__.__name__, obj.uuid)
 
-    thread_ip = "UNKNOWN"
-    if hasattr(_locals, 'ip'):
-        thread_ip = unicode(_locals.ip)
+    thread_ip = _get_locals_key('ip', obj) or "UNKNOWN"
+    thread_ip = unicode(thread_ip)
 
     if user_id:
         key = key + '_%s' % user_id

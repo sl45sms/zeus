@@ -17,6 +17,7 @@ from heliosauth.models import User
 
 from zeus.log import init_election_logger, init_poll_logger, _locals, \
     _close_logger
+from zeus.utils import resolve_ip
 
 import logging
 logger = logging.getLogger(__name__)
@@ -24,11 +25,6 @@ logger = logging.getLogger(__name__)
 
 AUTH_RE = re.compile('Basic (\w+[=]*)')
 
-def get_ip(request):
-    ip = request.META.get('HTTP_X_FORWARDER_FOR', None)
-    if not ip:
-        ip = request.META.get('REMOTE_ADDR')
-    return ip
 
 def class_method(func):
     def wrapper(self, request, *args, **kwargs):
@@ -56,15 +52,23 @@ def election_view(check_access=True):
             allow_manager = getattr(func, '_allow_manager', False)
             _check_access = check_access
             user = request.zeususer
+            user_id = None
             if user.is_authenticated():
                 try:
-                    _locals.user_id = user.user_id
+                    user_id = user.user_id
+                    _locals.user_id = user_id
                 except Exception:
                     raise PermissionDenied("Election cannot be accessed by you")
-            _locals.ip = get_ip(request)
+            ip = resolve_ip(request)
+            _locals.ip = ip
 
             if allow_manager and user.is_manager:
                _check_access = False
+
+            logging_locals = {
+                'user_id': user_id,
+                'ip': ip
+            }
 
             if 'election_uuid' in kwargs:
                 uuid = kwargs.pop('election_uuid')
@@ -72,6 +76,7 @@ def election_view(check_access=True):
                 if not user.can_access_election(election) and _check_access:
                     raise PermissionDenied("Election cannot be accessed by you")
                 kwargs['election'] = election
+                setattr(election, '_logging_locals', logging_locals)
 
             if 'poll_uuid' in kwargs:
                 uuid = kwargs.pop('poll_uuid')
@@ -79,6 +84,7 @@ def election_view(check_access=True):
                 if not user.can_access_poll(poll) and _check_access:
                     raise PermissionDenied("Poll cannot be accessed by you")
                 kwargs['poll'] = poll
+                setattr(poll, '_logging_locals', logging_locals)
 
             resp = func(request, *args, **kwargs)
             if 'poll' in kwargs:
@@ -410,6 +416,7 @@ def allow_manager_access(func):
     func._allow_manager = True
     func.func_globals['foo'] = 'bar'
     return func
+
 
 def make_shibboleth_login_url(endpoint):
     shibboleth_login = reverse('shibboleth_login', kwargs={'endpoint': endpoint})

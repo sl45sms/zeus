@@ -1112,7 +1112,7 @@ def sms_delivery(request, election, poll):
     except ValueError:
         raise PermissionDenied
 
-    ip_addr = request.META.get('REMOTE_ADDR', '')
+    ip_addr = resolve_ip(request)
     error = resp.get('error', None) or None
     if error == '0':
         error = None

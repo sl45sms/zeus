@@ -23,7 +23,7 @@ from heliosauth.auth_systems.password import make_password
 from helios.models import User, Election
 from heliosauth.models import UserGroup
 from zeus.models import Institution
-from zeus.utils import email_is_valid
+from zeus.utils import email_is_valid, resolve_ip
 from zeus.auth import ZeusUser
 
 from zeus.stv_count_reports import stv_count_and_report
@@ -327,9 +327,7 @@ def demo(request):
 
     email_address = request.POST.get('email', '')
 
-    remote_addr = request.META.get("REMOTE_ADDR", None)
-    client_address = request.META.get('HTTP_X_FORWARDED_FOR', remote_addr)
-    client_address = filter(lambda s:s.strip(), client_address.split(","))[0]
+    client_address = resolve_ip(request)
 
     if not email_is_valid(email_address):
         msg = _("Invalid email address")

@@ -518,3 +518,10 @@ def sanitize_redirect(url, valid_hosts=None):
             return decoded
         raise SuspiciousOperation('Invalid redirect url')
     return url
+
+
+def resolve_ip(request):
+    remote_addr = request.META.get("REMOTE_ADDR", None)
+    client_address = request.META.get('HTTP_X_FORWARDED_FOR', remote_addr)
+    client_address = filter(lambda s:s.strip(), map(lambda x:x.strip(), client_address.split(",")))[-1]
+    return client_address
