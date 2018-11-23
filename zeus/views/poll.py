@@ -614,7 +614,8 @@ def voters_email(request, election, poll=None, voter_uuid=None):
         'sms_enabled': election.sms_enabled,
         'template': template,
         'filtered_voters': filtered_voters,
-        'templates': TEMPLATES
+        'templates': TEMPLATES,
+        'q': q_param
     }
     set_menu('voters', context)
     if not poll:
