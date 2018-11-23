@@ -112,6 +112,7 @@ class EmailBackend(ContactBackend):
             try:
                 return message.send(fail_silently=False), None
             except Exception, e:
+                self.logger.exception(e)
                 return None, e
         else:
             return voter.user.send_message(subject, body), None
