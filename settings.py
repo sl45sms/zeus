@@ -337,6 +337,7 @@ ZEUS_USER_GUIDES = (
     # ),
 )
 
+ZEUS_SHIBBOLETH_PROFILES = {}
 # useful trick for custom settings
 try:
     from local_settings import *

@@ -102,7 +102,7 @@ def add_edit(request, election, poll=None):
                 new_poll.logger.info("Poll created")
             url = election_reverse(election, 'polls_list')
             return redirect(url)
-    if request.method == "GET":
+    else:
         form = PollForm(instance=poll, election=election, admin=admin)
     context = {'election': election, 'poll': poll,  'form': form}
     set_menu('polls', context)

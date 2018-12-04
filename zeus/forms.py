@@ -822,10 +822,14 @@ class PollForm(forms.ModelForm):
         self.fields['forum_starts_at'].help_text = None
         self.fields['forum_ends_at'].help_text = _("Voting starts at %s") % self.election.voting_ends_at
 
+
+        shib_data = None
         if self.initial is not None:
-            shib = self.initial.get('shibboleth_constraints', None)
-            if shib is not None and isinstance(shib, dict):
-                self.initial['shibboleth_constraints'] = json.dumps(shib)
+            shib_data = self.initial.get('shibboleth_constraints', None)
+            if isinstance(shib_data, basestring):
+                shib_data = json.loads(shib)
+            if shib_data is not None and isinstance(shib_data, dict):
+                self.initial['shibboleth_constraints'] = json.dumps(shib_data)
             if not self.instance or not self.instance.pk:
                 self.initial['forum_ends_at'] = self.election.voting_starts_at
                 self.initial['forum_starts_at'] = self.initial['forum_ends_at'] - timedelta(days=2)
@@ -837,19 +841,58 @@ class PollForm(forms.ModelForm):
         auth_help = _('2-factor authentication help text')
         self.fieldsets = {'auth': [auth_title, auth_help, []]}
         self.fieldset_fields = []
-
         auth_fields = ['jwt', 'google', 'facebook', 'shibboleth', 'oauth2']
+
+        profiles = getattr(settings, 'ZEUS_SHIBBOLETH_PROFILES', {})
+        self.shib_profiles = profiles
+        extra_auth_fields = {}
+        auth_checks = ['jwt_auth', 'oauth2_thirdparty', 'shibboleth_auth']
+        if profiles:
+            for key, data in profiles.items():
+                field_key = 'shibprofile{}'.format(key)
+                fields_key = '{}_auth'.format(field_key)
+                if shib_data and shib_data.get('profile', None) == key:
+                    del self.initial['shibboleth_constraints']
+                    del self.initial['shibboleth_auth']
+                    self.initial[fields_key] = True
+                widget = forms.CheckboxInput()
+                field = forms.BooleanField(widget=widget,
+                                           help_text=data.get('help_text', ' '),
+                                           label = data.get('label', ''),
+                                           required=False)
+                self.fields[fields_key] = field
+                self.fieldset_fields.append(field)
+                auth_checks.append(fields_key)
+                auth_fields.append(field_key)
+
         for name, field in self.fields.items():
-            if name.split("_")[0] in auth_fields:
+            parts = name.split("_")
+            if not parts[0] in auth_fields:
+                continue
+            is_check = name in auth_checks
+            key = parts[0]
+
+            if key in auth_fields:
                 self.fieldsets['auth'][2].append(name)
                 self.fieldset_fields.append(field)
+                setattr(field, 'field_attrs', '')
+                attrs = "data-auth={}".format(key)
+                if is_check:
+                    attrs += " data-auth-toggle=true"
+                    field.widget.attrs['field_class'] = 'fieldset-auth'
+                    field.help_text = field.help_text or '&nbsp;&nbsp;'
+                else:
+                    attrs += " data-auth-option={}".format(key)
+                    field.widget.attrs['field_class'] = \
+                        'auth-option-field {}'.format(key)
+                field.field_attrs = attrs
 
         keyOrder = self.fieldsets['auth'][2]
-        for field in ['jwt_auth', 'oauth2_thirdparty', 'shibboleth_auth']:
+        fieldsKeys = self.fields.keys()
+        for field in auth_checks:
             prev_index = keyOrder.index(field)
             item = keyOrder.pop(prev_index)
             keyOrder.insert(0, item)
-            self.fields[field].widget.attrs['field_class'] = 'fieldset-auth'
             if field == 'jwt_auth':
                 self.fields[field].widget.attrs['field_class'] = 'clearfix last'
 
@@ -939,6 +982,11 @@ class PollForm(forms.ModelForm):
         value = self.cleaned_data.get('shibboleth_constraints', None)
         if value == "None":
             return None
+        try:
+            value and json.loads(value)
+        except Exception, e:
+            raise forms.ValidationError(_("Invalid shibboleth constraints."))
+
         return value
 
     def clean(self):
@@ -990,6 +1038,13 @@ class PollForm(forms.ModelForm):
             for field_name in shibboleth_field_names:
                 if not data[field_name]:
                     self._errors[field_name] = _('This field is required.'),
+
+        for _key, item in self.shib_profiles.items():
+            key = 'shibprofile{}_auth'.format(_key)
+            if data[key]:
+                data['shibboleth_auth'] = True
+                data['shibboleth_constraints'] = item.get('data')
+                data['shibboleth_constraints']['profile'] = _key
 
         if data['jwt_auth']:
             for field_name in jwt_field_names:
