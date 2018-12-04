@@ -322,6 +322,7 @@ def do_download_mix(url, savefile):
 
 
 def get_login(url):
+    url = unquote(url)
     conn = get_http_connection(url)
     parsed = urlparse(url)
 
