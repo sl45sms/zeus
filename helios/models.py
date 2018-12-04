@@ -867,11 +867,17 @@ class Poll(PollTasks, HeliosModel, PollFeatures):
         'required_fields': ['REMOTE_USER', 'EPPN'],
         'endpoint': 'default/login'
     }
+    profiles = getattr(settings, 'ZEUS_SHIBBOLETH_PROFILES', {})
     default_constraints = getattr(settings, 'SHIBBOLETH_DEFAULT_CONSTRAINTS',
                                   defaults)
     constraints = {}
     constraints.update(default_constraints)
-    constraints.update(self.shibboleth_constraints or {})
+
+    data = self.shibboleth_constraints
+    profile = self.shibboleth_constraints.get('profile', None)
+    if data and profile and profile in profiles:
+        data = profiles.get(profile)['data']
+    constraints.update(data or {})
     return constraints
 
   @property
