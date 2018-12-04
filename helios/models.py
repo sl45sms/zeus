@@ -885,11 +885,23 @@ class Poll(PollTasks, HeliosModel, PollFeatures):
       return self.oauth2_thirdparty or self.jwt_auth or self.shibboleth_auth
 
   @property
+  def shibboleth_profile(self):
+      profiles = getattr(settings, 'ZEUS_SHIBBOLETH_PROFILES', {})
+      data = self.shibboleth_constraints
+
+      if data and 'profile' in data:
+          profile = profiles.get(data.get('profile'), None)
+          return profile
+      return None
+
+  @property
   def remote_login_display(self):
       if self.jwt_auth:
           return _("JSON Web Token Login")
       if self.oauth2_thirdparty:
           return _("Oauth2 Login %s") % self.oauth2_client_id
+      if self.shibboleth_profile:
+          return _(self.shibboleth_profile.get('label', "Shibboleth authentication"))
       if self.shibboleth_auth:
           return _("Shibboleth authentication")
       return None
