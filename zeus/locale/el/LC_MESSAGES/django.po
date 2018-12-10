@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-29 17:52+0200\n"
+"POT-Creation-Date: 2018-12-05 13:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -275,6 +275,9 @@ msgstr ""
 
 msgid "Invalid forum extension date."
 msgstr "Μη έγκυρη ημερομηνία παράτασης της διαβούλευσης"
+
+msgid "Invalid shibboleth constraints."
+msgstr "Μη έγκυρες παράμετροι ταυτοποίησης"
 
 msgid "Forum cannot be enabled for linked polls"
 msgstr "Η διαβούλευση δεν μπορεί να ενεργοποιηθεί σε συνδεδεμένες κάλπες"
