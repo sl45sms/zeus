@@ -390,6 +390,7 @@ class Election(ElectionTasks, HeliosModel, ElectionFeatures):
     def polls_by_link(self):
         linked = self.polls.exclude(linked_ref=None).distinct("linked_ref")
         uuids = linked.values_list('linked_ref', flat=True)
+        linked = map(lambda l: l.linked_to_poll, linked)
         unlinked = self.polls.filter(linked_ref=None).exclude(uuid__in=uuids)
         return itertools.chain(linked, unlinked)
 
