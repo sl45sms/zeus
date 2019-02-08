@@ -24,6 +24,7 @@ ADD deploy/config.yaml /etc/puppet/hieraconf/common.yaml
 COPY deploy/grnet-zeus /etc/puppet/modules/zeus
 
 ADD deploy/zeus.pp /srv/deploy/zeus.pp
+RUN apt-get -y update
 RUN cd /srv/deploy && puppet apply -v zeus.pp
 
 RUN service gunicorn stop
