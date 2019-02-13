@@ -874,8 +874,8 @@ class Poll(PollTasks, HeliosModel, PollFeatures):
     constraints = {}
     constraints.update(default_constraints)
 
-    data = self.shibboleth_constraints
-    profile = self.shibboleth_constraints.get('profile', None)
+    data = self.shibboleth_constraints or {}
+    profile = data.get('profile', None)
     if data and profile and profile in profiles:
         data = profiles.get(profile)['data']
     constraints.update(data or {})
