@@ -52,6 +52,7 @@ class zeus (
     $emailhost = 'localhost',
     $emailhostuser = false,
     $emailhostpass = false,
+    $emailport = 25,
     $debugemail = true,
     $dev = false
 ) {
