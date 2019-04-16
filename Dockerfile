@@ -43,7 +43,7 @@ RUN /etc/init.d/python-celery stop
 VOLUME /srv/data
 VOLUME /srv/static
 
-EXPOSE 80
+EXPOSE 80 443 8000
 
 ENTRYPOINT ["/bin/bash", "/srv/deploy/entrypoint.sh"]
 CMD ["run"]
